@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: IDEAdemo1
+  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.191:3306/callcenter_user?characterEncoding=utf-8&useSSL=false
+    username: ENC(lh5Or6q0rk3f2b9EgPJPoQ==)
+    password: ENC(bEiBZQ/GyS0y5zDE1jXeNjdIyAEuy5FA)
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
