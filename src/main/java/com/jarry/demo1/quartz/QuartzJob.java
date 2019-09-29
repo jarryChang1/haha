@@ -15,6 +15,6 @@ import org.springframework.stereotype.Component;
 public class QuartzJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("干活开始！！！！！");
+//        System.out.println("干活开始！！！！！");
     }
 }
