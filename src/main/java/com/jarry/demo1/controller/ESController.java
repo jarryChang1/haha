@@ -25,9 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @BelongsProject: demo1
- * @BelongsPackage: com.jarry.demo1.controller
- * @Author: Jarry.Chang
  * @CreateTime: 2019-09-29 12:03
  */
 @Slf4j
@@ -66,7 +63,7 @@ public class ESController {
         Iterable<Article> items = articleSearchRepository.findAll(Sort.by("id").descending());
 //        items.forEach(System.out::println);
         NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
-        nativeSearchQueryBuilder.withQuery(QueryBuilders.termQuery("abstracts","easy"));
+        nativeSearchQueryBuilder.withQuery(QueryBuilders.termQuery("abstracts","easy")); // nativeSearchQueryBuilder.withQuery(QueryBuilders.queryStringQuery("easy").defaultField("abstracts"));
         Page<Article> search = articleSearchRepository.search(nativeSearchQueryBuilder.build());
         search.stream().forEach(System.out::println);
     }

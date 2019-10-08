@@ -12,7 +12,7 @@ import java.util.List;
 public interface ArticleSearchRepository extends ElasticsearchRepository<Article,Long> {
 
     /**
-     * 根据标题查询
+     * 根据标题查询,不用实现，根据Es命名规则命名，es会帮助实现
      */
     public List<Article> findByTitle(String title);
 
