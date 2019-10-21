@@ -12,7 +12,7 @@ import org.quartz.SchedulerException;
 public class main {
     public static void main(String[] args) throws SchedulerException {
         System.out.println("开始");
-//        CronTrigger c=  Quartz.addOrUpdateQuartz();
+        CronTrigger c=  Quartz.addOrUpdateQuartz();
         System.out.println("---");
     }
 }

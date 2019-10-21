@@ -2,13 +2,12 @@ package com.jarry.demo1;
 
 import com.google.gson.JsonParser;
 import com.jarry.demo1.quartz.Quartz;
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
 import org.quartz.CronTrigger;
 import org.quartz.SchedulerException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 

@@ -1,11 +1,32 @@
 server:
   port: 8080
 spring:
-  data:
-    elasticsearch:
-      cluster-nodes: 127.0.0.1:9300
-      repositories:
-        enabled: true
+  elasticsearch:
+    bboss:
+      default:
+        name: default
+        elasticUser: elastic
+        elasticPassword: changeme
+        elasticsearch:
+          rest:
+            hostNames: 127.0.0.1:9200
+      logs:
+          name: logs
+          elasticUser: elastic
+          elasticPassword: changeme
+          elasticsearch:
+            rest:
+              hostNames: 127.0.0.1:9200
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+#  data:
+#    elasticsearch:
+#      cluster-nodes: 127.0.0.1:9200
+#      repositories:
+#        enabled: true
   application:
     name: IDEAdemo1
   datasource:
