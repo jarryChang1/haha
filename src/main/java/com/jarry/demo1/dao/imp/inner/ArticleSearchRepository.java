@@ -1,6 +1,7 @@
 //package com.jarry.demo1.dao.imp.inner;
 //
 //import com.jarry.demo1.Entry.Article;
+//import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 ////import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 //
 //import java.util.List;

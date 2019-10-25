@@ -12,21 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @CreateTime: 2019-10-21 15:50
  */
 public class BBossESStarterTestCase {
+//    @Autowired
+//    private BBossESStarter bBossESStarter;
     @Autowired
-    private BBossESStarter bBossESStarter;
+    private BBossESStarter bbossESStarterDefault;
+
     @Autowired
     Article article;
 
     @Test
     public void testBbossESStarter() throws Exception{
-        bBossESStarter = new BBossESStarter();
-        System.out.println(bBossESStarter);
+//        bbossESStarterDefault = new BBossESStarter();
+        System.out.println(bbossESStarterDefault);
         //验证环境，获取es状态
-        boolean exist = bBossESStarter.getRestClient().existIndiceType("es_article","article");
+        boolean exist = bbossESStarterDefault.getRestClient().existIndiceType("es_article","article");
         System.out.println(exist);
-        exist = bBossESStarter.getRestClient().existIndice("es_article");
+        exist = bbossESStarterDefault.getRestClient("default").existIndiceType("es_article","article");
+        System.out.println("logs twitter/tweet:"+exist);
+        exist = bbossESStarterDefault.getRestClient("logs").existIndice("es_article");
         System.out.println(exist);
-        exist = bBossESStarter.getRestClient().existIndice("tweet");
+        exist = bbossESStarterDefault.getRestClient("logs").existIndice("tweet");
         System.out.println(exist);
     }
 }

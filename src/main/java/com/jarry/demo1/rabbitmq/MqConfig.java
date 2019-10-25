@@ -78,7 +78,7 @@ public class MqConfig {
 //    }
 //
     @Bean
-    public RabbitTemplate rabbitTemplate(){ return new RabbitTemplate(connectionFactory());}
+    public AmqpTemplate rabbitTemplate(){ return new RabbitTemplate(connectionFactory());}
 
     //直连交换机directexchange精确匹配到队列；
     @Bean

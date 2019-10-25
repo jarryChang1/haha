@@ -1,37 +1,42 @@
-//package com.jarry.demo1.controller;
-//
-//import com.jarry.demo1.Entry.Article;
-//import com.jarry.demo1.dao.imp.inner.ArticleSearchRepository;
-//import lombok.extern.slf4j.Slf4j;
-//import org.elasticsearch.index.query.QueryBuilders;
-//import org.elasticsearch.index.query.QueryStringQueryBuilder;
-//import org.elasticsearch.search.aggregations.AggregationBuilders;
-//import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-//import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
-//import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import javax.annotation.Resource;
-//import java.util.Arrays;
-//import java.util.Date;
-//import java.util.List;
-//
-///**
-// * @CreateTime: 2019-09-29 12:03
-// */
-//@Slf4j
-//@RestController
-//public class ESController {
+package com.jarry.demo1.controller;
+
+import com.jarry.demo1.Entry.Article;
+
+import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.frameworkset.elasticsearch.ElasticSearchHelper;
+import org.frameworkset.elasticsearch.boot.BBossESStarter;
+import org.frameworkset.elasticsearch.client.ClientInterface;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @CreateTime: 2019-09-29 12:03
+ */
+@Slf4j
+@RestController
+public class ESController {
 //    @Autowired
 //    ArticleSearchRepository articleSearchRepository;
+    @Autowired
+    private BBossESStarter bbossESStarterDefault;
 //    @Resource
 //    private ElasticsearchTemplate elasticsearchTemplate;
 //
@@ -120,5 +125,21 @@
 //            System.out.println(article);
 //        }
 //    }
-//
-//}
+    @GetMapping("/esQuery")
+    public void esQuery(){
+        System.out.println(bbossESStarterDefault);
+        //验证环境，获取es状态
+        boolean exist = bbossESStarterDefault.getRestClient().existIndiceType("1089_13","1089_13");
+        System.out.println(exist);
+        exist = ElasticSearchHelper.getRestClientUtil("logs").existIndiceType("1089_13","1089_13");//指定集群名称logs
+
+//        exist = bbossESStarterDefault.getRestClient("default").existIndiceType("es_article","article");
+        System.out.println("logs twitter/tweet:"+exist);
+        exist = ElasticSearchHelper.getRestClientUtil().existIndice("1089_29");//指定集群名称default;
+        System.out.println(exist);
+        exist = ElasticSearchHelper.getRestClientUtil().existIndice("demo1");
+        System.out.println(exist);
+    }
+
+
+}

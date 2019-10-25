@@ -8,15 +8,17 @@ spring:
         elasticUser: elastic
         elasticPassword: changeme
         elasticsearch:
+          discoverHost: true
           rest:
             hostNames: 127.0.0.1:9200
       logs:
-          name: logs
-          elasticUser: elastic
-          elasticPassword: changeme
-          elasticsearch:
-            rest:
-              hostNames: 127.0.0.1:9200
+        name: logs
+        elasticUser: lalala
+        elasticPassword: hmzj
+        elasticsearch:
+          discoverHost: true
+          rest:
+            hostNames: 116.62.29.167:9200
   rabbitmq:
     host: 127.0.0.1
     port: 5672

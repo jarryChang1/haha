@@ -1,6 +1,7 @@
 package com.jarry.demo1;
 
 import com.google.gson.JsonParser;
+import com.jarry.demo1.Test.BBossESStarterTestCase;
 import com.jarry.demo1.quartz.Quartz;
 import org.quartz.CronTrigger;
 import org.quartz.SchedulerException;
@@ -20,6 +21,15 @@ public class Demo1Application {
         String json= "{\"pids\":[\"1\",\"2\",\"3\"]}";
         System.out.println(new JsonParser().parse(json).getAsJsonObject().getAsJsonArray("pids").get(1).getAsString());
         CronTrigger c=  Quartz.addOrUpdateQuartz();
+
+
+
+//        BBossESStarterTestCase bBossESStarterTestCase = new BBossESStarterTestCase();
+//       try {
+//           bBossESStarterTestCase.testBbossESStarter();
+//       }catch (Exception e){
+//          e.printStackTrace();
+//       }
 
 //        RestHighLevelClient client = new RestHighLevelClient(
 //                RestClient.builder(
