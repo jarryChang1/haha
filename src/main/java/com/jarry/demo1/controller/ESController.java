@@ -10,6 +10,14 @@ import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.frameworkset.elasticsearch.ElasticSearchHelper;
 import org.frameworkset.elasticsearch.boot.BBossESStarter;
 import org.frameworkset.elasticsearch.client.ClientInterface;
+import org.frameworkset.elasticsearch.client.ResultUtil;
+import org.frameworkset.elasticsearch.entity.ESDatas;
+import org.frameworkset.elasticsearch.entity.MapRestResponse;
+import org.frameworkset.elasticsearch.entity.MapSearchHit;
+import org.frameworkset.elasticsearch.entity.MapSearchHits;
+import org.frameworkset.elasticsearch.scroll.HandlerInfo;
+import org.frameworkset.elasticsearch.scroll.ScrollHandler;
+import org.frameworkset.elasticsearch.serial.ESTypeReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,9 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @CreateTime: 2019-09-29 12:03
@@ -125,6 +131,64 @@ public class ESController {
 //            System.out.println(article);
 //        }
 //    }
+    @GetMapping("esScrolltest")
+    public void esScrolltest(){
+        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs","esmapper/scroll.xml");
+        //scroll分页检索
+        long startTime=System.currentTimeMillis();
+        Map params = new HashMap();
+        params.put("size", 10000);//每页10000条记录
+        //scroll上下文有效期1分钟,每次scroll检索的结果都会合并到总得结果集中；数据量大时存在oom内存溢出风险，大数据量时可以采用handler函数来处理每次scroll检索的结果(后面介绍)
+        ESDatas<Map> response = clientUtil.scroll("1089_13/_search","scrollQuery","1m",params,Map.class);
+        List<Map> datas = response.getDatas();
+        long realTotalSize = datas.size();
+        long totalSize = response.getTotalSize();
+        long endTime=System.currentTimeMillis();
+        System.out.println("totalSize:"+totalSize);
+        System.out.println("realTotalSize:"+realTotalSize);
+        System.out.println("countAll:"+clientUtil.countAll("1089_13"));
+        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
+    }
+
+    @GetMapping("esScroll")
+    public void esScroll(){
+        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs","esmapper/scroll.xml");
+        //scroll分页检索
+        System.out.println(clientUtil);
+        long startTime=System.currentTimeMillis();
+        Map params = new HashMap();
+        params.put("taskId", 489);//每页10000条记录
+        //scroll上下文有效期1分钟,每次scroll检索的结果都会合并到总得结果集中；数据量大时存在oom内存溢出风险，大数据量时可以采用handler函数来处理每次scroll检索的结果(后面介绍)
+        MapRestResponse response = clientUtil.search("1089_13/_search","scrollQuery",params);
+        MapSearchHits list = response.getSearchHits();
+        Long l = ResultUtil.longValue(list.getTotal(),0L);
+        System.out.println(l);
+        long time = response.getTook();
+//        System.out.println(datas.subList(0,111));
+        long realTotalSize = response.getCount();
+        long totalSize = response.getCount();
+        System.out.println("totalSize:"+totalSize);
+        System.out.println("realTotalSize:"+realTotalSize);
+        System.out.println("countAll:"+clientUtil.countAll("1089_13"));
+        long endTime=System.currentTimeMillis();
+        System.out.println("程序运行时间： "+time+"ms");
+//        long startTime=System.currentTimeMillis();
+//        Map params = new HashMap();
+//        params.put("size", 5000);//每页5000条记录
+//        //采用自定义handler函数处理每个scroll的结果集后，response中只会包含总记录数，不会包含记录集合
+//        //scroll上下文有效期1分钟；大数据量时可以采用handler函数来处理每次scroll检索的结果，规避数据量大时存在的oom内存溢出风险
+//        ESDatas<Map> response = clientUtil.scroll("1089_13/_search", "scrollQuery", "1m", params, Map.class, new ScrollHandler<Map>(){
+//            public void handle(ESDatas<Map> response, HandlerInfo handlerInfo) {//自己处理每次scroll的结果
+//                List<Map> datas = response.getDatas();
+//                long totalSize = response.getTotalSize();
+//                System.out.println("totalSize:"+totalSize+",datas.size:"+datas.size());
+//            }
+//        });
+//        long endTime=System.currentTimeMillis();
+//        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
+//        System.out.println("response realzie:"+response.getTotalSize());
+    }
+
     @GetMapping("/esQuery")
     public void esQuery(){
         System.out.println(bbossESStarterDefault);

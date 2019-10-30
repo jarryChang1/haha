@@ -20,6 +20,10 @@ public class BBossESStarterTestCase {
     @Autowired
     Article article;
 
+    /**
+     * ---------------------------------bbossESStarter必须要自动注入，test的局部配置文件就不起作用了。
+     *
+     */
     @Test
     public void testBbossESStarter() throws Exception{
 //        bbossESStarterDefault = new BBossESStarter();
