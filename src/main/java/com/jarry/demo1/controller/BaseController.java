@@ -4,11 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jarry.demo1.Entry.Article;
+import com.jarry.demo1.Entry.Result;
 import com.jarry.demo1.Entry.UserBean;
 //import org.springframework.boot.configurationprocessor.json.JSONObject;
+import com.jarry.demo1.mapper.ArticleMapper;
 import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -17,6 +21,8 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "base")
 public class BaseController {
+    @Resource
+    ArticleMapper articleMapper;
     @PostMapping("saveOrUpdate")
     public Integer lalala(String s){
 //        UserBean userBean = new Gson().fromJson(s,UserBean.class);
@@ -45,5 +51,12 @@ public class BaseController {
 //        TreeSet<Integer> treeSet = new TreeSet<>(comparator);
         return 1;
 
+    }
+
+    @GetMapping("getOne")
+    public Result getOne(Integer id){
+        Result<Article> result = new Result<>();
+        result.setData(articleMapper.getOne(id));
+        return result;
     }
 }

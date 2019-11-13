@@ -3,6 +3,7 @@ package com.jarry.demo1;
 import com.google.gson.JsonParser;
 import com.jarry.demo1.Test.BBossESStarterTestCase;
 import com.jarry.demo1.quartz.Quartz;
+import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.CronTrigger;
 import org.quartz.SchedulerException;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import java.io.IOException;
 
 @ComponentScan
+@MapperScan(basePackages = "com.jarry.demo1.mapper")
 @SpringBootApplication
 public class Demo1Application {
 

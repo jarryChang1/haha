@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  profiles:
+    active: dev
   elasticsearch:
     bboss:
       default:
@@ -40,3 +42,9 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     mapUnderscoreToCamelCase: true
+
+#logging:
+#  level:
+#   com:
+#    jarry.demo1:
+#     mapper: debug

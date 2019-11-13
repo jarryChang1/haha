@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @Author: Jarry.Chang
  * @CreateTime: 2019-09-17 17:41
  */
-@Mapper
-public class BaseMapper {
+
+public interface BaseMapper {
 
 }
