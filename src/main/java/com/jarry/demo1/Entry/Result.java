@@ -1,12 +1,17 @@
 package com.jarry.demo1.Entry;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: Jarry.Chang
  * @CreateTime: 2019-10-09 17:57
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Result<T> {
 
     /**
