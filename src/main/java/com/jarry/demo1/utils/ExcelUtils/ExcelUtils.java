@@ -69,7 +69,7 @@ public class ExcelUtils {
         ServletOutputStream outputStream = null;
         ExcelWriter writer = null;
         try {
-            log.info("--------开始导入{}数据，共{}条",clazz.getName(),datas.size());
+          //  log.info("--------开始导入{}数据，共{}条",clazz.getName(),datas.size());
             outputStream = response.getOutputStream();
             fileName = new String(fileName.getBytes(), "iso8859-1");
             response.setHeader("Content-disposition","attachment;filename="+ fileName +".xlsx");
@@ -81,10 +81,13 @@ public class ExcelUtils {
             for(Map.Entry<String,String> entry:heads.entrySet()){
                 head.add(Collections.singletonList(entry.getKey()));
             }
+            log.info(head.toString());
+            log.info("---------------------------------------------------------------------------------------------------------------------");
+            log.info(getData(heads,datas,clazz).toString());
             sheet.setHead(head);
             writer.write1(getData(heads,datas,clazz),sheet);
             writer.finish();
-            log.info("--------导入完成");
+       //     log.info("--------导入完成");
         } catch (Exception e){
         } finally {
             if(null != outputStream){

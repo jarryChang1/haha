@@ -146,4 +146,18 @@ public class ArticleController extends BaseController {
 //        ExcelUtils.excelExport(httpResponse,"文章实体",list,Article.class,null);
         return new Result("0","成功",list);
     }
+
+    @GetMapping("downloadExcel2")
+    public Result downloadExcel2(HttpServletResponse httpServletResponse){
+                List<Article> list = new ArrayList<>();
+        list.add(new Article(1L,"哈哈1","传参1","吃药1",new Date()));
+        list.add(new Article(2L,"哈哈2","传参2","吃药2",new Date(17,1,2)));
+        LinkedHashMap<String,String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("标题","title");
+        linkedHashMap.put("内容","content");
+        linkedHashMap.put("摘要","abstracts");
+        ExcelUtils.excelExport(httpServletResponse,"文章实体",linkedHashMap,list,Article.class,null);
+
+        return new Result("0","成功",list);
+    }
 }
