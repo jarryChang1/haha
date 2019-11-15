@@ -1,26 +1,29 @@
 package com.jarry.demo1.controller;
 
 import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.event.OneRowAnalysisFinishEvent;
 import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jarry.demo1.Entry.Article;
 import com.jarry.demo1.Entry.Result;
 import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.apache.tomcat.util.file.ConfigFileLoader.getInputStream;
 
@@ -118,5 +121,29 @@ public class ArticleController extends BaseController {
             return new Result("0","成功",list);
         }
         return null;
+    }
+
+    @GetMapping("downloadExcel")
+    public Result downloadExcel(HttpServletResponse httpResponse)throws IOException {
+        ServletOutputStream outputStream = httpResponse.getOutputStream();
+        List<Article> list = new ArrayList<>();
+        list.add(new Article(1L,"哈哈1","传参1","吃药1",new Date()));
+        list.add(new Article(2L,"哈哈2","传参2","吃药2",new Date(2017,1,2)));
+        ExcelWriter writer = EasyExcelFactory.getWriterWithTempAndHandler(null,outputStream,ExcelTypeEnum.XLSX,true,null);
+        String filename = new String(("Article" + new SimpleDateFormat("yyyy-MM-dd").format(new Date())).getBytes(),"iso8859-1");
+        httpResponse.setCharacterEncoding("utf-8");
+        httpResponse.setHeader("Content-disposition","attachment;filename=" + filename + ".xlsx");
+        Sheet sheet = new Sheet(1,1,Article.class);
+        sheet.setSheetName("第一个sheet");
+        writer.write(list,sheet);
+        writer.finish();
+//        httpResponse.setContentType("multipart/form-data");
+
+        outputStream.flush();
+//        List<Article> list = new ArrayList<>();
+//        list.add(new Article(1L,"哈哈1","传参1","吃药1",new Date()));
+//        list.add(new Article(2L,"哈哈2","传参2","吃药2",new Date(17,1,2)));
+//        ExcelUtils.excelExport(httpResponse,"文章实体",list,Article.class,null);
+        return new Result("0","成功",list);
     }
 }

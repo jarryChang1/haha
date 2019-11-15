@@ -2,7 +2,9 @@ package com.jarry.demo1.Entry;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -22,6 +24,8 @@ import java.util.Date;
 //indexName  索引库的名称，indexStoreType 索引文件储存类型，
 @Document(indexName = "es_article",type = "article",indexStoreType = "fs",shards = 5,replicas = 1)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Article extends BaseRowModel implements Serializable {
 
     @Id
