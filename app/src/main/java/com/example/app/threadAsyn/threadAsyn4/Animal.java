@@ -1,9 +1,11 @@
-package com.example.app.threadAsyn;
+package com.example.app.ThreadAsyn.threadAsyn4;
 
 /**
- * @BelongsProject: demo1
- * @BelongsPackage: com.example.app.threadAsyn
- * @Author: Jarry.Chang
+ 龟兔赛跑：20米
+ 要求：
+ 1.兔子每秒0.5米的速度，每跑2米休息10秒，
+ 2.乌龟每秒跑0.1米，不休息
+ 3.其中一个跑到终点后另一个不跑了！
  * @CreateTime: 2019-11-18 11:42
  */
 public abstract class Animal extends Thread {

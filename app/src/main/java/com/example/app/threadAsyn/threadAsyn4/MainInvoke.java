@@ -1,8 +1,8 @@
-package com.example.app.threadAsyn;
+package com.example.app.ThreadAsyn.threadAsyn4;
 
 /**
  * @BelongsProject: demo1
- * @BelongsPackage: com.example.app.threadAsyn
+ * @BelongsPackage: com.example.app.ThreadAsyn.threadAsyn4
  * @Author: Jarry.Chang
  * @CreateTime: 2019-11-18 12:06
  */

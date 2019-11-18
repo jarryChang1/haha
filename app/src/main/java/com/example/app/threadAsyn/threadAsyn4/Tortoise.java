@@ -1,10 +1,10 @@
-package com.example.app.threadAsyn;
+package com.example.app.ThreadAsyn.threadAsyn4;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @BelongsProject: demo1
- * @BelongsPackage: com.example.app.threadAsyn
+ * @BelongsPackage: com.example.app.ThreadAsyn.threadAsyn4
  * @Author: Jarry.Chang
  * @CreateTime: 2019-11-18 11:55
  */
@@ -25,9 +25,9 @@ public class Tortoise extends Animal {
             if (callback != null) callback.win();
 
         }
-        log.info("乌龟跑了{}米，距离终点还有{}米",dis,length);
+        log.info("乌龟跑了{}米，距离终点还有{}米",dis,(int)length);
         try{
-            sleep(1000);
+            sleep(100);
         }catch (InterruptedException e){
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
-package com.example.app.threadAsyn;
+package com.example.app.ThreadAsyn.threadAsyn4;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @BelongsProject: demo1
- * @BelongsPackage: com.example.app.threadAsyn
+ * @BelongsPackage: com.example.app.ThreadAsyn.threadAsyn4
  * @Author: Jarry.Chang
  * @CreateTime: 2019-11-18 11:46
  */
