@@ -63,10 +63,10 @@ public class MqConfig {
 //    public RabbitAdmin rabbitAdmin(@Qualifier("connectRabbitmq")ConnectionFactory connectionFactory){
 //        return new RabbitAdmin(connectionFactory);
 //    }
-//
-//    private static final int DEFAULT_CONCURRENT = 100;
-//
-//    private static final int DEFAULT_PREFETCH_COUNT = 50;
+        //消费者数量，默认100
+//      private static final int DEFAULT_CONCURRENT = 100;
+        //每个消费者获取最大的投递数50
+//      private static final int DEFAULT_PREFETCH_COUNT = 50;
 //
 //    @Bean
 //    public SimpleRabbitListenerContainerFactory pointTaskContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer containerFactoryConfigurer, @Qualifier("connectRabbitmq")ConnectionFactory connectionFactory){

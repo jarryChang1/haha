@@ -26,6 +26,26 @@ public class Quartz {
     @Autowired
     private QuartzJob quartzJob;
 
+    public static CronTrigger addQuartz() throws SchedulerException{
+        Long taskId = 1L;
+        String CronValue = "1-2 * * * * ? ";
+        QuartzConfig quartzConfig = new QuartzConfig();
+        Scheduler scheduler = quartzConfig.scheduler();
+        CronTrigger trigger = null;
+            TriggerKey triggerKey = TriggerKey.triggerKey(taskId.toString(),JOBGROUP);
+            trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+
+            //存在任务
+            // Trigger已存在，那么更新相应的定时设置
+            //表达式调度构建器
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(CronValue);
+            trigger = trigger.getTriggerBuilder()//没有绑定任务，会出现空指针
+                    .withIdentity(triggerKey)
+                    .withSchedule(scheduleBuilder)
+                    .build();
+            scheduler.rescheduleJob(triggerKey,trigger);
+        return trigger;
+    }
     public static CronTrigger addOrUpdateQuartz() throws SchedulerException {
         Long taskId = (long) 2;
 
@@ -58,14 +78,22 @@ public class Quartz {
                 /**
                  * 设置触发器
                  */
-                TriggerBuilder<CronTrigger> builder = newTrigger()
-                        .withIdentity(taskId.toString(), JOBGROUP)
+                trigger = newTrigger()
+                        .withIdentity(taskId.toString(),JOBGROUP)
                         .withPriority(priority)
-                        .withSchedule(scheduleBuilder);
-                builder.startAt(new Date());
-                builder.endAt(new Date(2020,9,30,14,30,60));
-//                builder.startNow();
-                trigger = builder.build();
+                        .withSchedule(scheduleBuilder)
+                        .startNow()
+                        .endAt(new Date(2020,9,30,14,30,60))
+                        .build();
+
+//                TriggerBuilder<CronTrigger> builder = newTrigger()
+//                        .withIdentity(taskId.toString(), JOBGROUP)
+//                        .withPriority(priority)
+//                        .withSchedule(scheduleBuilder);
+//                builder.startAt(new Date());
+//                builder.endAt(new Date(2020,9,30,14,30,60));
+////                builder.startNow();
+//                trigger = builder.build();
 //                Trigger trigger1 = newTrigger()
 //                        .usingJobData();
                 /**

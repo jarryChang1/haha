@@ -10,15 +10,19 @@ import com.jarry.demo1.Entry.UserBean;
 //import org.springframework.boot.configurationprocessor.json.JSONObject;
 import com.jarry.demo1.mapper.ArticleMapper;
 import org.apache.logging.log4j.util.PropertySource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 /**
  * @CreateTime: 2019-09-17 17:38
  */
-@RestController
+@Controller
 @RequestMapping(value = "base")
 public class BaseController {
     @Resource
@@ -59,4 +63,9 @@ public class BaseController {
         result.setData(articleMapper.getOne(id));
         return result;
     }
+    @GetMapping("index")
+    public String index(){
+        return "/index";
+    }
+
 }

@@ -13,6 +13,7 @@ public class main {
     public static void main(String[] args) throws SchedulerException {
         System.out.println("开始");
         CronTrigger c=  Quartz.addOrUpdateQuartz();
+        System.out.println(QuartzJob.class.toString());
         System.out.println("---");
     }
 }

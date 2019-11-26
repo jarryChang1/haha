@@ -28,6 +28,8 @@ spring:
     port: 5672
     username: guest
     password: guest
+  thymeleaf:
+    prefix: classpath:/templates/
 #  data:
 #    elasticsearch:
 #      cluster-nodes: 127.0.0.1:9200
