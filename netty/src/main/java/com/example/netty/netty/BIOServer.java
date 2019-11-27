@@ -1,5 +1,4 @@
-package com.example.oswaduo.BIO;
-
+package com.example.netty.netty;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,9 +9,9 @@ import java.util.concurrent.Executors;
 
 /**
  * @BelongsProject: demo1
- * @BelongsPackage: com.example.oswaduo.BIO
+ * @BelongsPackage: com.example.netty.netty
  * @Author: Jarry.Chang
- * @CreateTime: 2019-11-27 10:42
+ * @CreateTime: 2019-11-27 11:52
  */
 public class BIOServer {
     public static void main(String[] args) throws Exception {
@@ -29,7 +28,11 @@ public class BIOServer {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-
+                    try {
+                        handler(socket);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -39,8 +42,10 @@ public class BIOServer {
             byte[] bytes = new byte[1024];
             InputStream inputStream = socket.getInputStream();
             //不加循环
+            while(true){
             int read = inputStream.read(bytes);
             if (read != -1) System.out.println(new String(bytes,0,read));
+            }
         }catch (IOException e){
             e.printStackTrace();
         }finally {
