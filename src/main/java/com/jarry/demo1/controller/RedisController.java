@@ -1,6 +1,10 @@
 package com.jarry.demo1.controller;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +35,22 @@ public class RedisController {
             flag = false;
         }
         return flag;
+    }
+
+    @Test
+    public void redisTransaction(){
+        //事务必须是同一个连接,此时开启操作都是单连接session
+        redisTemplate.execute(new SessionCallback() {
+            @Override
+            public Object execute(RedisOperations redisOperations) throws DataAccessException {
+                redisOperations.multi();
+                redisOperations.opsForValue().set("name","zhangsan");
+                redisOperations.opsForValue().set("age","22");
+                String name = (String) redisTemplate.opsForValue().get("name");
+                System.out.println(name);
+                System.out.println(redisOperations.exec());
+                return redisOperations.exec();
+            }
+        });
     }
 }
