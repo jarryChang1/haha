@@ -4,16 +4,15 @@ import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.event.OneRowAnalysisFinishEvent;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jarry.demo1.Entry.Article;
 import com.jarry.demo1.Entry.Result;
+import com.jarry.demo1.annotation.SysOperationLog;
 import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,11 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.apache.tomcat.util.file.ConfigFileLoader.getInputStream;
 
 /**
  * @BelongsProject: demo1
@@ -41,6 +38,7 @@ public class ArticleController extends BaseController {
     private ArticleService articleService;
 
     //根据id获取文章内容
+    @SysOperationLog(remark = "新建用户",operationType = 1)
     @GetMapping("getArticle/{id}")
     public Result getArticle(@PathVariable("id") int id){
         Result s = new Result();

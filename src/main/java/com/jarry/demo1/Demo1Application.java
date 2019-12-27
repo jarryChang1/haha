@@ -25,7 +25,9 @@ import java.io.IOException;
 public class Demo1Application implements CommandLineRunner {
 
     public static void main(String[] args) throws SchedulerException, IOException {
-        SpringApplication.run(Demo1Application.class, args);
+        try{
+        SpringApplication.run(Demo1Application.class, args);}
+        catch (Exception e){e.printStackTrace();}
         String json= "{\"pids\":[\"1\",\"2\",\"3\"]}";
         System.out.println(new JsonParser().parse(json).getAsJsonObject().getAsJsonArray("pids").get(1).getAsString());
         CronTrigger c=  Quartz.addOrUpdateQuartz();
