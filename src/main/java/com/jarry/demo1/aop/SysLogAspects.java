@@ -57,6 +57,7 @@ public class SysLogAspects {
             params = JSONObject.toJSONString(arguments);
         }
         //拿到用户的信息
+        // 根据输入参数下标[0]获取token，用token去redis拿UserDTO对象，赋值进OperationLog
         OperationLog operationLog = new OperationLog();
         operationLog.setId(1L);
         operationLog.setCreateTime(new Date());

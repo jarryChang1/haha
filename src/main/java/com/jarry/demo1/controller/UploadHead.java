@@ -13,6 +13,15 @@ import java.util.Random;
 public class UploadHead {
 
     /**
+     * Thumbnailator 是一个优秀的图片处理的Google开源Java类库。
+     * <dependency>
+     *     <groupId>net.coobird</groupId>
+     *     <artifactId>thumbnailator</artifactId>
+     *     <version>0.4.8</version>
+     * </dependency>
+     */
+
+    /**
      * @param file      文件流
      * @param path      文件存放路径
      * @param userId    上传用户的Id
