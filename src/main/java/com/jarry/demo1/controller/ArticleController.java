@@ -13,6 +13,7 @@ import com.jarry.demo1.Entry.Result;
 import com.jarry.demo1.annotation.SysOperationLog;
 import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/article")
+@Slf4j
 public class ArticleController extends BaseController {
 
     @Autowired
@@ -110,6 +112,7 @@ public class ArticleController extends BaseController {
             @Override
             public void doAfterAllAnalysed(AnalysisContext analysisContext) {
             list.clear();
+            log.info("---------------------------------------------clear success");
             }
         };
         EasyExcelFactory.readBySax(file.getInputStream(),new Sheet(1,0),excelListener);

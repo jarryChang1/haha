@@ -10,6 +10,8 @@ import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.frameworkset.elasticsearch.ElasticSearchHelper;
 import org.frameworkset.elasticsearch.boot.BBossESStarter;
 import org.frameworkset.elasticsearch.client.ClientInterface;
+import org.frameworkset.elasticsearch.client.DB2ESImportBuilder;
+import org.frameworkset.elasticsearch.client.DataStream;
 import org.frameworkset.elasticsearch.client.ResultUtil;
 import org.frameworkset.elasticsearch.entity.ESDatas;
 import org.frameworkset.elasticsearch.entity.MapRestResponse;
@@ -20,6 +22,7 @@ import org.frameworkset.elasticsearch.scroll.ScrollHandler;
 import org.frameworkset.elasticsearch.serial.ESTypeReference;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,6 +46,13 @@ public class ESController {
 //    ArticleSearchRepository articleSearchRepository;
     @Autowired
     private BBossESStarter bbossESStarterDefault;
+
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
 //    @Resource
 //    private ElasticsearchTemplate elasticsearchTemplate;
 //
@@ -204,6 +214,45 @@ public class ESController {
         exist = ElasticSearchHelper.getRestClientUtil().existIndice("demo1");
         System.out.println(exist);
     }
+    @GetMapping("/DB2ES")
+    public void DataBase2ES(String index,String type,String tablename){//（不同需求）可以多传入索引字段，加快效率
+        DB2ESImportBuilder importBuilder = DB2ESImportBuilder.newInstance();
+        ClientInterface clientInterface = bbossESStarterDefault.getRestClient();
 
+        if (!clientInterface.existIndice(index)) {
+            log.info("--------------------------------index not exist:{}",index);
+            clientInterface.createIndiceMapping(index, null);
+        }
+        Long count = clientInterface.countAll(index);
+        //数据源相关配置，可选项，可以在外部启动数据源
+        importBuilder.setDbName("mybase")
+                .setDbDriver("com.mysql.jdbc.Driver") //数据库驱动程序，必须导入相关数据库的驱动jar包
+                .setDbUrl(url+"&useCursorFetch=true") //通过useCursorFetch=true启用mysql的游标fetch机制，否则会有严重的性能隐患，useCursorFetch必须和jdbcFetchSize参数配合使用，否则不会生效
+                .setDbUser(username)
+                .setDbPassword(password)
+                .setValidateSQL("select 1")
+                .setUsePool(false);//是否使用连接池u
+        //指定导入数据的sql语句，必填项，可以设置自己的提取逻辑
+        importBuilder.setSql("select * from "+tablename);
+        /**
+         * es相关配置
+         */
+        importBuilder
+                .setIndex(index) //必填项
+                .setIndexType(type) //必填项
+                .setRefreshOption("refresh")//可选项，null表示不实时刷新，importBuilder.setRefreshOption("refresh");表示实时刷新
+                .setUseJavaName(true) //可选项,将数据库字段名称转换为java驼峰规范的名称，例如:doc_id -> docId
+                .setBatchSize(5000)  //可选项,批量导入es的记录数，默认为-1，逐条处理，> 0时批量处理
+                .setJdbcFetchSize(10000);//设置数据库的查询fetchsize，同时在mysql url上设置useCursorFetch=true启用mysql的游标fetch机制，否则会有严重的性能隐患，jdbcFetchSize必须和useCursorFetch参数配合使用，否则不会生效
+        /**
+         * 执行数据库表数据导入es操作
+         */
+        long start = System.currentTimeMillis();
+        DataStream dataStream = importBuilder.builder();
+        dataStream.execute();
+        long end = System.currentTimeMillis();
+        log.info("导入用时{}秒,导入文档数量：{}",(end-start)/1000,clientInterface.countAll(index)-count);
+
+    }
 
 }
