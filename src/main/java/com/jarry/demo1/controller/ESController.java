@@ -29,9 +29,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -255,4 +253,9 @@ public class ESController {
 
     }
 
+    @PostMapping("aa")
+    public String aa(@RequestBody String message) {
+        log.info("-----------+++++++++++++++++++++++++++++++"+message);
+        return message;
+    }
 }

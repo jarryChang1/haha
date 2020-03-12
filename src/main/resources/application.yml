@@ -15,14 +15,14 @@ spring:
           discoverHost: true
           rest:
             hostNames: 127.0.0.1:9200
-      logs:
-        name: logs
-        elasticUser: elastic
-        elasticPassword: hmzj123456
-        elasticsearch:
-          discoverHost: true
-          rest:
-            hostNames: 192.168.1.244:9200
+#      logs:
+#        name: logs
+#        elasticUser: elastic
+#        elasticPassword: hmzj123456
+#        elasticsearch:
+#          discoverHost: true
+#          rest:
+#            hostNames: 192.168.1.244:9200
   rabbitmq:
     host: 127.0.0.1
     port: 5672

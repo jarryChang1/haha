@@ -68,11 +68,13 @@ public class ArticleController extends BaseController {
         fieldExplain.put("title","标题");
         fieldExplain.put("abstracts","摘要");
         fieldExplain.put("content","内容");
+        //匹配到的字段，例：title(DTO字段名),excel表头(如 电话号)
         Map<String,Object> field = new LinkedHashMap<>(16);
+        //对应的字段以及第几列，例：title(DTO字段名)，excel对应的列号index(如 3)
         Map<String,Integer> headIndex = new LinkedHashMap<>(16);
-        AnalysisEventListener excelListener = new AnalysisEventListener() {
+        AnalysisEventListener excelListener = new AnalysisEventListener()  {
             @Override
-            public void invoke(Object o, AnalysisContext analysisContext) {
+            public void invoke(Object o, AnalysisContext analysisContext) throws RuntimeException{
                 //当前读到的excel值
                 List<String> excelList = gson.fromJson(gson.toJson(o), new TypeToken<List<String>>() {
                 }.getType());
@@ -87,26 +89,36 @@ public class ArticleController extends BaseController {
                                   headIndex.put(entry.getKey(),i);
                               }
                         }
+                    }if(field.size() == 0) {
+                        throw new RuntimeException("test");
                     }
+
                 }else {
+                    String s = null;
                     for (Map.Entry<String,Object> entry: field.entrySet()
-                         ) {
+                            ) {
                         for (Map.Entry<String,Integer> headEntry:headIndex.entrySet()
-                             ) {
+                                ) {
                             if(entry.getKey().equals(headEntry.getKey())){
-                                field.replace(entry.getKey(),excelList.get(headEntry.getValue()));
+                                try {
+                                    s = excelList.get(headEntry.getValue());
+                                }catch (IndexOutOfBoundsException e){
+                                    e.printStackTrace();
+                                }
+                                field.replace(entry.getKey(), s);
+                                //field中记载了每一行的key与value;field结构：一个实体对象；
                             }
                         }
                     }
+                    //每次解析field到实体对象中。
                 Article article = gson.fromJson(gson.toJson(field),new TypeToken<Article>(){}.getType());
 
-//                list.add(o);
-                doSomething(article);
+//                doSomething(article);
                 }
             }
-            public void doSomething(Article o){
+            public void doSomething(Article article){
                 //入库等操作，方法可设计
-                System.out.println(o.toString());
+//                System.out.println(o.toString());
             }
 
             @Override
