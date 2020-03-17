@@ -6,6 +6,12 @@ import redis.clients.jedis.Jedis;
 import java.util.Collections;
 import java.util.UUID;
 
+/**
+ * redis 分布式锁。基于redis的单线程指令
+ * 基本是顺序的，
+ * 主从模式下：需要注意需要使用红锁---来主从同步锁的状态
+ * ②注意：（设置锁超时时间要适合）
+ */
 @Slf4j
 public class RedisDistributedLock implements DistributedLock{
 
