@@ -24,6 +24,8 @@ import java.io.IOException;
 @SpringBootApplication
 public class Demo1Application implements CommandLineRunner {
 
+    public static volatile String str = "111000";
+
     public static void main(String[] args) throws SchedulerException, IOException {
         try{
         SpringApplication.run(Demo1Application.class, args);}
@@ -49,7 +51,7 @@ public class Demo1Application implements CommandLineRunner {
     public SocketIOServer socketIOServer(){
         Configuration configuration = new Configuration();
         configuration.setPort(9092);
-        configuration.setHostname("localhost");
+//        configuration.setHostname("localhost");
         configuration.setSocketConfig(new SocketConfig());
         configuration.setAuthorizationListener(handshakeData -> true);
         configuration.setWorkerThreads(100);

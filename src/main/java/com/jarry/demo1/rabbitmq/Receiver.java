@@ -14,6 +14,35 @@ import java.util.HashMap;
  * @BelongsPackage: com.jarry.demo1.rabbitmq
  * @Author: Jarry.Chang
  * @CreateTime: 2019-10-17 10:51
+ *
+ *
+ *
+ *
+ *====================停用
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 public class Receiver {
     private RabbitAdmin rabbitAdmin;

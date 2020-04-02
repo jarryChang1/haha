@@ -2,8 +2,10 @@ package com.jarry.demo1.controller;
 
 
 import com.jarry.demo1.Entry.Result;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import weixin.popular.api.SnsAPI;
@@ -20,7 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/wx")
 public class WxController {
-
+    private static final String strAppId ="wxeb7057d45e535444";
+    private static final String strAppSecret = "18bf5d539166f99bee00940da93d6c0f";
 
     public WxController() {
         System.out.println("WxController构造函数");
@@ -32,8 +35,7 @@ public class WxController {
     public Result wxreg(HttpServletRequest request, String code){
         Result result = new Result();
 
-        String strAppId ="";
-        String strAppSecret = "";
+
         SnsToken token = SnsAPI.oauth2AccessToken(strAppId, strAppSecret, code);
 
         BaseResult baseResult = SnsAPI.auth(token.getAccess_token(), token.getOpenid());
@@ -51,11 +53,28 @@ public class WxController {
 
         return result;
     }
+    //前端请求getCode
+    @GetMapping(value = "/getCode",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object wxcon(){
+//        String reUrl = SnsAPI.connectQrconnect(strAppId,"http://z.haoma.cn","lalalalajarry");
+        String reUrl = SnsAPI.connectOauth2Authorize(strAppId,"http://z.haoma.cn/pang/weixin/connectionServer",false,"lalalalajarry");
+        System.out.println(reUrl);
+
+        Object o = HttpUtils.sendRequest(reUrl,HttpMethod.POST,null,String.class);
+        return o;
+    }
+
 
 
     //测试函数
     public static void main(String[] args)
     {
+//        String reUrl = SnsAPI.connectQrconnect(strAppId,"http://z.haoma.cn","lalalalajarry");
+        String reUrl = SnsAPI.connectOauth2Authorize(strAppId,"http://z.haoma.cn/pang/weixin/connectionServer",false,"lalalalajarry");
+
+        System.out.println(reUrl);
+        Object o = HttpUtils.sendRequest(reUrl,HttpMethod.POST,null,String.class);
+        System.out.println(o.toString());
         // TODO Auto-generated method stub
     }
 

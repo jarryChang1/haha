@@ -48,32 +48,32 @@ public class Article extends BaseRowModel implements Serializable {
         System.out.println(this);
         Article.article = this;
     }
-    public static void main(String[] args) throws InterruptedException {
-        article = new Article();
-        System.out.println(article);
-        // 对象第一次拯救自己
-        article = null;
-        System.out.println(article);
-        System.gc();
-        // 因为finalize方法优先级很低，所以暂停0.5秒以等待它
-        Thread.sleep(500);
-        if (article != null) {
-            article.toString();
-        } else {
-            System.out.println("no, i am dead : (");
-        }
-
-        // 下面这段代码与上面的完全相同,但是这一次自救却失败了
-        // 一个对象的finalize方法只会被调用一次
-        article = null;
-        System.gc();
-        // 因为finalize方法优先级很低，所以暂停0.5秒以等待它
-        Thread.sleep(500);
-        if (article != null) {
-            article.toString();
-        } else {
-            System.out.println("no, i am dead : (");
-        }
-    }
+//    public static void main(String[] args) throws InterruptedException {
+//        article = new Article();
+//        System.out.println(article);
+//        // 对象第一次拯救自己
+//        article = null;
+//        System.out.println(article);
+//        System.gc();
+//        // 因为finalize方法优先级很低，所以暂停0.5秒以等待它
+//        Thread.sleep(500);
+//        if (article != null) {
+//            article.toString();
+//        } else {
+//            System.out.println("no, i am dead : (");
+//        }
+//
+//        // 下面这段代码与上面的完全相同,但是这一次自救却失败了
+//        // 一个对象的finalize方法只会被调用一次
+//        article = null;
+//        System.gc();
+//        // 因为finalize方法优先级很低，所以暂停0.5秒以等待它
+//        Thread.sleep(500);
+//        if (article != null) {
+//            article.toString();
+//        } else {
+//            System.out.println("no, i am dead : (");
+//        }
+//    }
 
 }

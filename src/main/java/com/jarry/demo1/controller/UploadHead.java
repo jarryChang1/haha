@@ -63,4 +63,10 @@ public class UploadHead {
         is.close();
         return newFileName ;
     }
+
+    public static void main(String[] args) {
+        final Integer integer = new Integer(11);
+
+    }
+
 }

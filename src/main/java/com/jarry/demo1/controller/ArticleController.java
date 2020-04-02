@@ -15,6 +15,7 @@ import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,8 @@ public class ArticleController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //根据id获取文章内容
     @SysOperationLog(remark = "新建用户",operationType = 1)
@@ -45,8 +48,15 @@ public class ArticleController extends BaseController {
     public Result getArticle(@PathVariable("id") int id){
         Result s = new Result();
         Article article = articleService.getOne(id);
+        redisTemplate.opsForValue().set("jarry",article.toString());
         s.setData(article);
         return s;
+    }
+
+    @GetMapping("getRedis")
+    public Result getRedis(String key,String value){
+        redisTemplate.opsForValue().set(key,value);
+        return new Result("1",key,value);
     }
 
     //导入文章的excel，处理数据; 没有定制逻辑，只能自己用

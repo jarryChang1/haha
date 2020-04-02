@@ -43,8 +43,8 @@ public class Threadcomu {
                     while (i<=MAX_NUM){
                         System.out.println(Thread.currentThread().getName()+":"+i++);
                         try {
-                            object.notify();
-                            object.wait();
+//                            object.notify();
+                            object.wait(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
