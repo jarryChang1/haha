@@ -15,7 +15,9 @@ import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,8 +51,55 @@ public class ArticleController extends BaseController {
         Result s = new Result();
         Article article = articleService.getOne(id);
         redisTemplate.opsForValue().set("jarry",article.toString());
+        RedisZSetCommands.Range range = new RedisZSetCommands.Range();
+        Set zset1 = redisTemplate.opsForZSet().range("Zset1", 0, 1);
+        System.out.println(zset1);
+        Iterator it = zset1.iterator();
+        while(it.hasNext()){
+            Long l = Long.parseLong((String) it.next());
+            if (l < System.currentTimeMillis()){
+                System.out.println(l);
+            }
+        }
         s.setData(article);
         return s;
+    }
+    class myThread implements Runnable{
+
+        @Override
+        public void run() {
+            Set<ZSetOperations.TypedTuple<Object>> typedTupleSet = redisTemplate.opsForZSet().rangeWithScores("Zset1",0,-1);
+            Iterator<ZSetOperations.TypedTuple<Object>> iterator = typedTupleSet.iterator();
+            while (iterator.hasNext()){
+                ZSetOperations.TypedTuple<Object> typedTuple = iterator.next();
+                Object value = typedTuple.getValue();
+                double score = typedTuple.getScore();
+                while (score > System.currentTimeMillis()){
+
+                }
+                //调用延时任务、或者延时接口（延时消息）
+                System.out.println("Score:value 已经被消费掉了---------------------------"+value);
+//                System.out.println("通过rangeByScoreWithScores(K key, double min, double max)方法获取RedisZSetCommands.Tuples的区间值通过分值:" + value + "---->" + score );
+            }
+
+        }
+    }
+
+    @GetMapping("setRedis")
+    public void setRedis(){
+        redisTemplate.opsForZSet().add("Zset1",System.currentTimeMillis()+"",System.currentTimeMillis()+5000);
+        redisTemplate.opsForZSet().add("Zset1",System.currentTimeMillis()+"",System.currentTimeMillis()+7010);
+        redisTemplate.opsForZSet().add("Zset1",System.currentTimeMillis()+"",System.currentTimeMillis()+10020);
+        myThread myThread = new myThread();
+        myThread.run();
+//        Set<ZSetOperations.TypedTuple<Object>> typedTupleSet = redisTemplate.opsForZSet().rangeWithScores("Zset1",0,1);
+//        Iterator<ZSetOperations.TypedTuple<Object>> iterator = typedTupleSet.iterator();
+//        while (iterator.hasNext()){
+//            ZSetOperations.TypedTuple<Object> typedTuple = iterator.next();
+//            Object value = typedTuple.getValue();
+//            double score = typedTuple.getScore();
+//            System.out.println("通过rangeByScoreWithScores(K key, double min, double max)方法获取RedisZSetCommands.Tuples的区间值通过分值:" + value + "---->" + score );
+//        }
     }
 
     @GetMapping("getRedis")

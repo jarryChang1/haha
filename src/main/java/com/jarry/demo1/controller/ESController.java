@@ -1,5 +1,6 @@
 package com.jarry.demo1.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.jarry.demo1.Entry.Article;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,9 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * @CreateTime: 2019-09-29 12:03
@@ -139,6 +142,38 @@ public class ESController {
 //            System.out.println(article);
 //        }
 //    }
+public static void main(String[] args) {
+
+/**
+ * 必须重写序列化器，否则@Cacheable注解的key会报类型转换错误
+ *
+ */
+     final String target = "\"";
+
+     final String replacement = "";
+         Object object = "SIP_NUMBER_DATA_1108";
+            String string = JSON.toJSONString(object);
+            string = string.replace(target, replacement);
+    byte[] utf8s = new byte[0];
+    try {
+        utf8s = string.getBytes("UTF8");
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    }
+
+    System.out.println(utf8s);
+
+    ExecutorService service = Executors.newCachedThreadPool();
+    new PriorityQueue<>();
+    new PriorityBlockingQueue<>(16, new Comparator<Object>() {
+        @Override
+        public int compare(Object o1, Object o2) {
+            return 0;
+        }
+    });
+    service = new ThreadPoolExecutor(10,100,0, TimeUnit.SECONDS,new PriorityBlockingQueue<>(20));
+    //需要实现任务中自带优先级
+}
     @GetMapping("esScrolltest")
     public void esScrolltest(){
         ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs","esmapper/scroll.xml");

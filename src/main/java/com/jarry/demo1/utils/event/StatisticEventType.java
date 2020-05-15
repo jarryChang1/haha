@@ -21,4 +21,6 @@ public enum StatisticEventType {
 
     private StatisticEventType() {
     }
+
+
 }

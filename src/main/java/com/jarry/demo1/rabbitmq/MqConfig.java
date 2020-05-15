@@ -56,7 +56,7 @@ public class MqConfig {
 
     public static final String ROUTINGKEY_A = "spring-boot-routingKey_A";
     public static final String ROUTINGKEY_B = "Q.#";
-    public static final String ROUTINGKEY_C = "Q.*";
+    public static final String ROUTINGKEY_C = "Q.*";//.为单词分隔符，*号匹配一个单词，#号匹配多个单词（或0个）
 
 
 //    @Bean
@@ -68,14 +68,14 @@ public class MqConfig {
         //每个消费者获取最大的投递数50
 //      private static final int DEFAULT_PREFETCH_COUNT = 50;
 //
-//    @Bean
-//    public SimpleRabbitListenerContainerFactory pointTaskContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer containerFactoryConfigurer, @Qualifier("connectRabbitmq")ConnectionFactory connectionFactory){
-//            SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+    @Bean
+    public SimpleRabbitListenerContainerFactory pointTaskContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer containerFactoryConfigurer, @Qualifier("connectRabbitmq")ConnectionFactory connectionFactory){
+            SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
 //            factory.setPrefetchCount(DEFAULT_PREFETCH_COUNT);
 //            factory.setConcurrentConsumers(DEFAULT_CONCURRENT);
-//            containerFactoryConfigurer.configure(factory,connectionFactory);
-//            return factory;
-//    }
+            containerFactoryConfigurer.configure(factory,connectionFactory);
+            return factory;
+    }
 //
     @Bean
     public AmqpTemplate rabbitTemplate(){ return new RabbitTemplate(connectionFactory());}
@@ -141,6 +141,13 @@ public class MqConfig {
     }
     @Bean
     public Queue queueD() { return new Queue(QUEUE_D, true); }//队列持久
+
+    @Bean
+    public Queue queueF(){
+        return QueueBuilder.durable("queue_f")
+                .withArgument("x-overflow","reject-publish")//drop-head、reject-publish或reject-publish-dlx
+                .build();
+    }
 
     @Bean public Queue queueE() { return new Queue(QUEUE_E, true); }//队列持久
 

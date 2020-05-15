@@ -27,7 +27,7 @@ public class Consumer {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
         System.out.println("receiver success = "+ content);
 
         log.info("接收处理队列E当中的消息： " + content);

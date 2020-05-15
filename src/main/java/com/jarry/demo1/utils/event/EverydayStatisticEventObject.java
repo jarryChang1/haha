@@ -23,4 +23,8 @@ public class EverydayStatisticEventObject {
 
     private StatisticEventType statisticEventType;
 
+    public static void main(String[] args) {
+        
+    }
+
 }

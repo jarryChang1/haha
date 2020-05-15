@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -63,7 +64,7 @@ public class BaseController {
     public Result getOne(Integer id){
         Result<Article> result = new Result<>();
         result.setData(articleMapper.getOne(id));
-
+        System.out.println("----------------------------------------------------------------------------");
         return result;
     }
     @GetMapping("index")
@@ -71,6 +72,22 @@ public class BaseController {
 
         System.out.println(this.getOne(1).getClass().isAnnotationPresent(Controller.class));
         return "/index";
+    }
+
+    @GetMapping("socket")
+    public String socket(){
+        return "/socket";
+    }
+
+    public static void main(String[] args) {
+        int year = 2020;
+        int month = 4;
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month-1);
+        cal.set(Calendar.DAY_OF_MONTH,cal.getMinimum(Calendar.DATE));
+        String format = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+        System.out.println(format);
     }
 
 }

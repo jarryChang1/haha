@@ -9,11 +9,11 @@ import org.quartz.SchedulerException;
  * @Author: Jarry.Chang
  * @CreateTime: 2019-09-23 11:42
  */
-public class main {
-    public static void main(String[] args) throws SchedulerException {
-        System.out.println("开始");
-        CronTrigger c=  Quartz.addOrUpdateQuartz();
-        System.out.println(QuartzJob.class.toString());
-        System.out.println("---");
-    }
-}
+//public class main {
+//    public static void main(String[] args) throws SchedulerException {
+//        System.out.println("开始");
+//        CronTrigger c=  Quartz.addOrUpdateQuartz();
+//        System.out.println(QuartzJob.class.toString());
+//        System.out.println("---");
+//    }
+//}

@@ -12,9 +12,8 @@ import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 public class HttpUtils {
@@ -31,6 +30,12 @@ public class HttpUtils {
         }
     }
 
+//    public static void main(String[] args) {
+//        Jedis jedis = new Jedis("114.115.167.79",8001);
+//        jedis.auth("12345qwer890-iop[");
+//        Set<String> set = jedis.keys("user*");
+//        System.out.println(set.toString());
+//    }
     public static Object getRequest(String url, Class clazz) throws RestClientException {
         ResponseEntity entity = restTemplate.getForEntity(url, clazz);
         return entity.getBody();

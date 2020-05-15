@@ -2,11 +2,10 @@ package com.jarry.demo1;
 
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketConfig;
-import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import com.google.gson.JsonParser;
-import com.jarry.demo1.Test.BBossESStarterTestCase;
+import com.jarry.demo1.controller.ArticleController;
 import com.jarry.demo1.quartz.Quartz;
 import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.CronTrigger;
@@ -27,12 +26,13 @@ public class Demo1Application implements CommandLineRunner {
     public static volatile String str = "111000";
 
     public static void main(String[] args) throws SchedulerException, IOException {
-        try{
-        SpringApplication.run(Demo1Application.class, args);}
-        catch (Exception e){e.printStackTrace();}
-        String json= "{\"pids\":[\"1\",\"2\",\"3\"]}";
-        System.out.println(new JsonParser().parse(json).getAsJsonObject().getAsJsonArray("pids").get(1).getAsString());
-        CronTrigger c=  Quartz.addOrUpdateQuartz();
+//        try{
+        SpringApplication.run(Demo1Application.class, args);
+//        }catch (Exception e){e.printStackTrace();}
+//        String json= "{\"pids\":[\"1\",\"2\",\"3\"]}";
+//        System.out.println(new JsonParser().parse(json).getAsJsonObject().getAsJsonArray("pids").get(1).getAsString());
+//        CronTrigger c=  Quartz.addOrUpdateQuartz();
+
 //        BBossESStarterTestCase bBossESStarterTestCase = new BBossESStarterTestCase();
 //       try {
 //           bBossESStarterTestCase.testBbossESStarter();
