@@ -5,6 +5,7 @@ import com.jarry.demo1.Entry.UserBean;
 import com.sun.org.apache.bcel.internal.classfile.Unknown;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,5 +48,19 @@ public class Optional1 {
         Stream eStream = Optional.ofNullable(list).map(List::stream).orElseGet(Stream::empty);
         Object collect = eStream.filter(u -> u != null).collect(Collectors.toList());
         System.out.println(collect.toString());
+
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        List<Integer> collect1 = (List<Integer>) list.stream().filter(u -> u.equals(0) || u.equals(1)).collect(Collectors.toList());
+        List<Integer> collect2 = collect1.stream().sorted().collect(Collectors.toList());
+        System.out.println(collect2);
+
+
+        Object o = Optional.ofNullable(null).orElse(0);
+        boolean present = Optional.ofNullable(null).isPresent();
+        Optional<Object> o1 = Optional.ofNullable(null);
+        System.out.println(o1.toString());
+        System.out.println(present);
     }
 }
