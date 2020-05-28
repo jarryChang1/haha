@@ -13,6 +13,7 @@ import com.jarry.demo1.Entry.Result;
 import com.jarry.demo1.annotation.SysOperationLog;
 import com.jarry.demo1.service.ArticleService;
 import com.jarry.demo1.utils.ExcelUtils.ExcelUtils;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisZSetCommands;
@@ -37,6 +38,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/article")
 @Slf4j
+@Api(description = "文章接口")
 public class ArticleController extends BaseController {
 
     @Autowired

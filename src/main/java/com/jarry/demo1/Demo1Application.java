@@ -4,23 +4,23 @@ import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketConfig;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
-import com.google.gson.JsonParser;
-import com.jarry.demo1.controller.ArticleController;
-import com.jarry.demo1.quartz.Quartz;
 import org.mybatis.spring.annotation.MapperScan;
-import org.quartz.CronTrigger;
 import org.quartz.SchedulerException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
-@ComponentScan
+@ComponentScan(basePackages = "com.jarry.demo1.Config")
+@EnableAutoConfiguration
 @MapperScan(basePackages = "com.jarry.demo1.mapper")
 @SpringBootApplication
+@EnableAsync
 public class Demo1Application implements CommandLineRunner {
 
     public static volatile String str = "111000";
