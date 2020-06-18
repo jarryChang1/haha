@@ -28,8 +28,9 @@ public class ThreadLocal {
                 System.out.println("thread2 local:"+threadLocal.get()+Thread.currentThread().getName());
             }
         });
-        thread.start();
+
         thread1.start();
+        thread.start();
         threadLocal.set("main");
         try {
             Thread.sleep(1000);

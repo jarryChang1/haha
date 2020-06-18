@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -68,6 +67,20 @@ public class TestStreamReduceAndCollect {
         long l = Duration.between(start,end).toMillis();
         System.out.println(l);
 
+    }
+
+    @Test
+    public void test7(){
+
+        Integer[] is = new Integer[]{0,1,2,3,4,5};
+        for (int i = 0; i < is.length/2; i++) {
+            Integer tmp = is[i];
+            is[i] = is[is.length - i -1];
+            is[is.length -i - 1] = tmp;
+        }
+        System.out.println(Arrays.toString(is));
+
+        System.out.println(Math.round(11.4));
     }
 
     @Test

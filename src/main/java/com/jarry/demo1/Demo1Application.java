@@ -4,6 +4,7 @@ import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketConfig;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
+import com.jarry.demo1.aop.Service;
 import org.mybatis.spring.annotation.MapperScan;
 import org.quartz.SchedulerException;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.ui.context.support.UiApplicationContextUtils;
 
 import java.io.IOException;
 
@@ -45,6 +47,8 @@ public class Demo1Application implements CommandLineRunner {
 //                        new HttpHost("114.115.167.79", 9300, "http")));
 //        System.out.println(client.toString());
 //        client.close();
+//        Service service = ApplicationContextUtils.getBean(Service.class);
+//        service.test();
     }
 
     @Bean

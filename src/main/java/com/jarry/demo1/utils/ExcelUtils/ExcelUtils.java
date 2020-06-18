@@ -44,6 +44,7 @@ public class ExcelUtils {
             writer.write(datas,sheet);
             writer.finish();
         } catch (Exception e){
+
         } finally {
             if(null != outputStream){
                 try {
