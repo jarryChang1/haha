@@ -7,5 +7,5 @@ package com.jarry.demo1.Test;
  * @CreateTime: 2020-08-26 14:05
  */
 public interface Parser {
-    public boolean doParse(String sqlString);
+    public int doParse(String sqlString,int canMatch);
 }

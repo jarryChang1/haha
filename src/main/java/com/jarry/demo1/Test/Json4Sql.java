@@ -1,8 +1,6 @@
 package com.jarry.demo1.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @BelongsProject: demo1
@@ -75,5 +73,54 @@ public class Json4Sql {
             }
         }
         return canMatch == 1;
+    }
+
+
+    public static void main(String[] args) {
+        String s = "sql = 1 and a = q or p = 9 and m = c and p like jjd";
+        String[] ands = s.split("and");
+        HashMap<String, String> map = new HashMap<>();
+        OrParser orParser = new OrParser(map);
+        PriorityQueue queue  = new PriorityQueue();
+        int canMatch = 0;
+        for (int i = 0; i < ands.length; i++) {
+            if (ands[i].contains("or")){
+                String[] ors = ands[i].split("or");
+                for (int j = 0; j < ors.length; j++) {
+                    System.out.println(ors[j]);
+                    String orSql = ors[j];
+                    canMatch = orParser.doParse(orSql, 0);
+                    //使用or的方式去Parse;
+                    //如果解析完后值为false,直接返回
+                }
+                if (canMatch == 0) return;
+            }
+            else if (ands[i].contains("=")){
+                wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 2);
+                queue.add(wrappedExpression);
+            }
+            else if (ands[i].contains(">")){
+                wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 1);
+                queue.add(wrappedExpression);
+            }
+            else if (ands[i].contains("<")){
+                wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 1);
+                queue.add(wrappedExpression);
+            }
+            else if (ands[i].contains("like")){
+                wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 0);
+                queue.add(wrappedExpression);
+            }
+        //根据String.contains() = 、> 、<、like来设置优先级，加入优先级队列。
+        }
+        //从PriorityQueue中取出去用AndParser解析;
+        AndParser andParser = new AndParser(map);
+        while (!queue.isEmpty()){
+            wrappedExpression remove = (wrappedExpression) queue.remove();
+            canMatch = andParser.doParse(remove.getSqlExpression(), canMatch);
+            System.out.println(remove.toString());
+        }
+        System.out.println(canMatch == 1);
+//        System.out.println(Arrays.toString(ands));
     }
 }
