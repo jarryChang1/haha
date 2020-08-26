@@ -112,13 +112,25 @@ public class Json4Sql {
 
         /**sql解析*/
         int canMatch = 0;
-        PriorityQueue orsQueue  = new PriorityQueue();
+        OrParser orParser = new OrParser(map);
+        AndParser andParser = new AndParser(map);
         if (sql.contains("or")){
             String[] ors = sql.split("or");
             for (int i = 0; i < ors.length; i++) {
-                String[] split = ors[i].split(" ");
-                wrappedExpression wrappedExpression = new wrappedExpression(ors[i], split.length);//此处优先级反了
-                orsQueue.add(wrappedExpression);
+
+               if (ors[i].contains("and")){
+                    String[] ands = ors[i].split("and");
+                    for (int j = 0; j < ors.length; j++) {
+                        System.out.println(ands[j]);
+                        String andSql = ands[j];
+                        canMatch = andParser.doParse(andSql, 1);
+                        //使用or的方式去Parse;
+                        //如果解析完后值为false,直接返回
+                    }
+                    if (canMatch == 1) return true;
+                }else {
+                   canMatch = orParser.doParse(ors[i], canMatch);
+               }
             }
         }//如果有or的情况下,一次解析数组长度最小的sql，如果有一个true，则返回true;
         else {
@@ -158,7 +170,6 @@ public class Json4Sql {
                 //根据String.contains() = 、> 、<、like来设置优先级，加入优先级队列。
             }
             //从PriorityQueue中取出去用AndParser解析;
-            AndParser andParser = new AndParser(map);
             while (!queue.isEmpty()){
                 wrappedExpression remove = (wrappedExpression) queue.remove();
                 canMatch = andParser.doParse(remove.getSqlExpression(), canMatch);
