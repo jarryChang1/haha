@@ -1,8 +1,7 @@
-package com.jarry.demo1.Config;
+package com.jarry.demo1;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -19,11 +18,10 @@ import java.util.List;
 
 /**
  * @BelongsProject: demo1
- * @BelongsPackage: com.jarry.demo1.Config
+ * @BelongsPackage: com.jarry.demo1
  * @Author: Jarry.Chang
- * @CreateTime: 2020-05-21 11:04
+ * @CreateTime: 2020-07-08 15:09
  */
-
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -48,6 +46,11 @@ public class SwaggerConfig {
                 .termsOfServiceUrl("lalalala")
                 .version("1.0")
                 .build();
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(1<<4);
     }
 
 }

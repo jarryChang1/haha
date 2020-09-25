@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @CreateTime: 2020-06-01 12:08
  */
 @Component
-@ComponentScan(basePackages = "com.jarry.demo1.aop")
 public class Config {
 
 }

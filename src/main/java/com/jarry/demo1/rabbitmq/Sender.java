@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.UUID;
 
-/**
-    简单rabbitmq练手
+/**简单rabbitmq练手
  * @Author: Jarry.Chang
  * @CreateTime: 2019-10-17 10:50
  */
