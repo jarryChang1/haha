@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -19,7 +20,7 @@ import org.springframework.ui.context.support.UiApplicationContextUtils;
 import java.io.IOException;
 
 @ComponentScan(basePackages = "com.jarry.demo1.Config")
-@EnableAutoConfiguration
+@ServletComponentScan(basePackages = "com.jarry.demo1.java3y.ProxyMode.Connector")
 @MapperScan(basePackages = "com.jarry.demo1.mapper")
 @SpringBootApplication
 @EnableAsync
