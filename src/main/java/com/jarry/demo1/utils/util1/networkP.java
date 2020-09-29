@@ -55,7 +55,7 @@ public class networkP {
         System.out.println(l);
 
         //测试序列化与反序列化
-        UserBean userBean = new UserBean("jarry",22,22);
+        UserBean userBean = new UserBean("jarry", 22, 22);
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("D:/file01.txt")));
         oos.writeObject(userBean);
         oos.close();

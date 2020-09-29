@@ -31,26 +31,26 @@ public class BaseController {
 
 
     @PostMapping("saveOrUpdate")
-    public Integer lalala(String s){
+    public Integer lalala(String s) {
 //        UserBean userBean = new Gson().fromJson(s,UserBean.class);
         JsonParser parser = new JsonParser();
         JsonArray jsonArray = parser.parse(s).getAsJsonArray();
         List<UserBean> list = new ArrayList<>();
         Gson gson = new Gson();
-        jsonArray.forEach(g -> list.add(gson.fromJson(g,UserBean.class)));
+        jsonArray.forEach(g -> list.add(gson.fromJson(g, UserBean.class)));
 
         JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
         JsonArray jsonArray1 = jsonObject.getAsJsonArray();
-        jsonArray1.forEach(g -> list.add(gson.fromJson(g,UserBean.class)));
-        list.stream().filter(g -> (g.getAge())>30);
+        jsonArray1.forEach(g -> list.add(gson.fromJson(g, UserBean.class)));
+        list.stream().filter(g -> (g.getAge()) > 30);
         String json = "{\"name\":\"fly\",\"age\":25}";
-        Map<String ,String> map = new HashMap();
-        if(map.entrySet().iterator().hasNext()){
-            Map.Entry<String,String> entry = map.entrySet().iterator().next();
-            String g1 =entry.getKey().toString()+entry.getValue().toString();
+        Map<String, String> map = new HashMap();
+        if (map.entrySet().iterator().hasNext()) {
+            Map.Entry<String, String> entry = map.entrySet().iterator().next();
+            String g1 = entry.getKey().toString() + entry.getValue().toString();
         }
-        for (Map.Entry<String,String> entry : map.entrySet()
-             ) {
+        for (Map.Entry<String, String> entry : map.entrySet()
+        ) {
             entry.getKey();
             entry.getValue();
         }
@@ -61,21 +61,22 @@ public class BaseController {
     }
 
     @GetMapping("getOne")
-    public Result getOne(Integer id){
+    public Result getOne(Integer id) {
         Result<Article> result = new Result<>();
         result.setData(articleMapper.getOne(id));
         System.out.println("----------------------------------------------------------------------------");
         return result;
     }
+
     @GetMapping("index")
-    public String index(){
+    public String index() {
 
         System.out.println(this.getOne(1).getClass().isAnnotationPresent(Controller.class));
         return "/index";
     }
 
     @GetMapping("socket")
-    public String socket(){
+    public String socket() {
         return "/socket";
     }
 
@@ -84,8 +85,8 @@ public class BaseController {
         int month = 4;
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month-1);
-        cal.set(Calendar.DAY_OF_MONTH,cal.getMinimum(Calendar.DATE));
+        cal.set(Calendar.MONTH, month - 1);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getMinimum(Calendar.DATE));
         String format = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
         System.out.println(format);
     }

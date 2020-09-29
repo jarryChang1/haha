@@ -13,24 +13,25 @@ import java.util.concurrent.locks.ReentrantLock;
  * @CreateTime: 2020-01-10 17:09
  */
 @Data
-public class Node extends Thread{
+public class Node extends Thread {
     public Long key;
 
     public String value;
 
-    Node(Long key,String value){
+    Node(Long key, String value) {
         this.key = key;
 
         this.value = value;
     }
 
     @Override
-    public String toString(){
-        return "Node{"+
-                "key = "+ key +
-                ", value" +value+'\''+
+    public String toString() {
+        return "Node{" +
+                "key = " + key +
+                ", value" + value + '\'' +
                 '}';
     }
+
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
@@ -40,7 +41,7 @@ public class Node extends Thread{
         System.out.println("done ");
     }
 
-//    public static void main(String[] args) throws InterruptedException {
+    //    public static void main(String[] args) throws InterruptedException {
 //        Thread thread = new Node(1L,"sss");
 //        thread.start();
 //        Thread.sleep(1000);
@@ -64,31 +65,26 @@ public class Node extends Thread{
 //    }
 //    t.interrupt();
 //}
-public static void main(String[] args) throws InterruptedException {
-    final Lock lock = new ReentrantLock();
+    public static void main(String[] args) throws InterruptedException {
+        final Lock lock = new ReentrantLock();
         lock.lock();
 
-    Thread t1 = new Thread(new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            try
-            {
-                lock.lockInterruptibly();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lock.lockInterruptibly();
+                } catch (InterruptedException e) {
+                    System.out.println(Thread.currentThread().getName() + " interrupted.");
+                }
             }
-            catch(InterruptedException e)
-            {
-                System.out.println(Thread.currentThread().getName() + " interrupted.");
-            }
-        }
-    }, "child thread -1");
+        }, "child thread -1");
 
-    t1.start();
-    Thread.sleep(1000);
-    System.out.println(t1.isAlive());
-    t1.interrupt();//线程相应中断后，捕获了异常，正常退出了
-    System.out.println(t1.isAlive());
-    Thread.sleep(1000000);
-}
+        t1.start();
+        Thread.sleep(1000);
+        System.out.println(t1.isAlive());
+        t1.interrupt();//线程相应中断后，捕获了异常，正常退出了
+        System.out.println(t1.isAlive());
+        Thread.sleep(1000000);
+    }
 }

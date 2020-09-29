@@ -16,7 +16,7 @@ import java.util.Map;
 public class JavaGenerics {
     /**
      * 泛型类语法示例
-     *
+     * <p>
      * MyGenericsType：泛型类名，即泛型原始类型
      * <T>：泛型标识，标识这是一个泛型类或者泛型方法
      * T：泛型类型
@@ -42,10 +42,10 @@ public class JavaGenerics {
     }
 
     @Test
-    public void test1(){
-            //泛型原始类型
-            MyGenericsType myGenericsType = new MyGenericsType();
-            log.info(myGenericsType.getClass().toString());
+    public void test1() {
+        //泛型原始类型
+        MyGenericsType myGenericsType = new MyGenericsType();
+        log.info(myGenericsType.getClass().toString());
 //类型擦除
         /**泛型在编译之后，只保留了原始类型，即MyGenericsType。
          * 泛型类型擦除：泛型在编译阶段，生成的字节码中不包含泛型类型，只保留原始类型。
@@ -57,11 +57,10 @@ public class JavaGenerics {
         log.info(myGenericsType1.getClass().toString());
         log.info(integerMyGenericsType.getClass().toString());
         log.info(doubleMyGenericsType.getClass().toString());
-            //泛型类型
-            MyGenericsType<Integer> integerMyGenericsType2 = new MyGenericsType<Integer>();
-            log.info(integerMyGenericsType2.getClass().toString());
+        //泛型类型
+        MyGenericsType<Integer> integerMyGenericsType2 = new MyGenericsType<Integer>();
+        log.info(integerMyGenericsType2.getClass().toString());
     }
-
 
 
 }

@@ -13,13 +13,13 @@ public class FilterChain {
 
     List<Filter> filters = new ArrayList<>(10);
 
-    public FilterChain(){
+    public FilterChain() {
         filters.add(new FilterEgg());
         filters.add(new FilterAoBing());
         filters.add(new FilterBaiCai());
     }
 
-    public void processData(String data){
+    public void processData(String data) {
         for (Filter f :
                 filters) {
             f.doFilter(data);

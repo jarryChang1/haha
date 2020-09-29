@@ -18,7 +18,7 @@ public class javaGenericsClear {
      * <p>Title: 类型擦除之后的原始类型 示例</p>
      */
     @Data
-    static class TempList<T>{
+    static class TempList<T> {
         private T t;
 
         public T setT(T t) {
@@ -43,7 +43,7 @@ public class javaGenericsClear {
 //类型检查不通过
 //doubleMyGenericsType.setT(new Integer(1));
 //通过反射跳过类型检查
-            doubleMyGenericsType1.getClass().getMethod("setT",Object.class).invoke(doubleMyGenericsType1,new Double(1));
+            doubleMyGenericsType1.getClass().getMethod("setT", Object.class).invoke(doubleMyGenericsType1, new Double(1));
             log.info(doubleMyGenericsType1.getT().toString());
         }
 //        //类型擦除与编译前检查

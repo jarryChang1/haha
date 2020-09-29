@@ -5,10 +5,10 @@ package com.jarry.demo1.java3y.ProxyMode.DesignMode.StrategyPa;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.DesignMode.StrategyPa
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-25 10:55
- *      总结：
- *          1、Context是用来包装Strategy策略的
- *          2、传入的是实现具体（干活）接口的对象实体
- *          3、算法可自由切换,扩展性良好
+ * 总结：
+ * 1、Context是用来包装Strategy策略的
+ * 2、传入的是实现具体（干活）接口的对象实体
+ * 3、算法可自由切换,扩展性良好
  */
 public class Main {
     public static void main(String[] args) {

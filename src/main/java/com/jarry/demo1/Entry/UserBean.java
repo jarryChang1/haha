@@ -10,7 +10,7 @@ import java.util.Objects;
  * @CreateTime: 2019-09-18 09:21
  */
 @Data
-public  class UserBean implements Serializable {
+public class UserBean implements Serializable {
 
     private static final long serialVersionUID = 4493638076637673025L;
     public String name;
@@ -24,17 +24,20 @@ public  class UserBean implements Serializable {
     }
 
     public String uuid;
+
     //ssssss
-      public   UserBean(String s,int age,int phone,int email){
+    public UserBean(String s, int age, int phone, int email) {
         this.name = s;
         this.age = age;
         this.phone = phone;
         this.email = email;
     }
-    public UserBean(String s){
+
+    public UserBean(String s) {
         this.name = s;
     }
-    public UserBean(String s,int age){
+
+    public UserBean(String s, int age) {
         this.name = s;
         this.age = age;
     }
@@ -56,13 +59,14 @@ public  class UserBean implements Serializable {
         return Objects.hash(name, age, phone, email);
     }
 
-    public UserBean(String s, int age, int phone){
+    public UserBean(String s, int age, int phone) {
         this.name = s;
         //sssssssssdcdsadsadsa
         this.age = age;
         this.phone = phone;
     }
-    public UserBean(){
+
+    public UserBean() {
 
     }
 }

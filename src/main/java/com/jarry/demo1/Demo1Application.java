@@ -53,7 +53,7 @@ public class Demo1Application implements CommandLineRunner {
     }
 
     @Bean
-    public SocketIOServer socketIOServer(){
+    public SocketIOServer socketIOServer() {
         Configuration configuration = new Configuration();
         configuration.setPort(9092);
 //        configuration.setHostname("localhost");
@@ -64,7 +64,7 @@ public class Demo1Application implements CommandLineRunner {
     }
 
     @Bean
-    public SpringAnnotationScanner springAnnotationScanner(){
+    public SpringAnnotationScanner springAnnotationScanner() {
         return new SpringAnnotationScanner(socketIOServer());
     }
 

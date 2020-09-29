@@ -23,26 +23,30 @@ public class Optional1 {
     UserBean userBean = new UserBean();
     Optional<UserBean> optionalBean = Optional.ofNullable(userBean);
 
-    private String main(){
+    private String main() {
 
-    optionalBean.ifPresent(System.out::println);
-    if(optionalBean != null){ System.out.println(optionalBean); }
+        optionalBean.ifPresent(System.out::println);
+        if (optionalBean != null) {
+            System.out.println(optionalBean);
+        }
 
         /**
          * -----------------------------------------------------
          */
-       // return optionalBean.orElse(null);
+        // return optionalBean.orElse(null);
            /*
         if(optionalBean.isPresent()){
             return optionalBean.get();
         }
         else return null;*/
-          return optionalBean.map(p ->p.getName()).map(name -> name.toUpperCase()).orElse(null);
+        return optionalBean.map(p -> p.getName()).map(name -> name.toUpperCase()).orElse(null);
     }
 
-    /**空集合的流操作，------------如果集合为空，对空集合进行流操作*/
+    /**
+     * 空集合的流操作，------------如果集合为空，对空集合进行流操作
+     */
     @Test
-    public void Test1(){
+    public void Test1() {
         List list = new ArrayList();
         list.add(new Result<>());
         Stream eStream = Optional.ofNullable(list).map(List::stream).orElseGet(Stream::empty);

@@ -17,7 +17,7 @@ public class AsyncTest {
 
 
     @Async
-    public Future<Integer> excute01AsyncWithFuture(){
+    public Future<Integer> excute01AsyncWithFuture() {
         return AsyncResult.forValue(this.execute01());
     }
 
@@ -61,6 +61,6 @@ public class AsyncTest {
         i = i++;
         int j = i++;
         int k = i + ++i * i++;
-        System.out.println(i+" "+j+" "+k);
+        System.out.println(i + " " + j + " " + k);
     }
 }

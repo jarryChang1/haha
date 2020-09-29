@@ -30,7 +30,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         //设置全局token
-        ParameterBuilder tokenPar=new ParameterBuilder();
+        ParameterBuilder tokenPar = new ParameterBuilder();
         tokenPar.name("token").description("令牌token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         List<Parameter> pars = new ArrayList<>();
         pars.add(tokenPar.build());

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @CreateTime: 2020-09-10 16:55
  */
 @Data
-public class Student implements Cloneable,Serializable {
+public class Student implements Cloneable, Serializable {
 
     //引用类型
     private Subject subject;

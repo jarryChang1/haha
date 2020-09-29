@@ -9,12 +9,13 @@ package com.jarry.demo1.java3y.ProxyMode.LeakBuket;
 public class singleBena {
 
     private singleBena singleBena = null;
-    private singleBena(){
+
+    private singleBena() {
 
     }
 
-    public singleBena constract(){
-        if (singleBena == null){
+    public singleBena constract() {
+        if (singleBena == null) {
             singleBena = new singleBena();
         }
         return singleBena;

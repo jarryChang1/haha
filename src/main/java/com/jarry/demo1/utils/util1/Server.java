@@ -15,7 +15,7 @@ public class Server {
     public static void main(String[] args) throws IOException {
         System.out.println("服务端启动.....");
 
-        int port =43438;
+        int port = 43438;
         ServerSocket serverSocket = new ServerSocket(port);
 
         Socket socket = serverSocket.accept();
@@ -24,8 +24,8 @@ public class Server {
         byte[] bytes = new byte[1024];
         int len = 0;
         StringBuilder sb = new StringBuilder();
-        while((len = inputStream.read(bytes)) != -1){
-            sb.append(new String(bytes,0,len,"utf-8"));
+        while ((len = inputStream.read(bytes)) != -1) {
+            sb.append(new String(bytes, 0, len, "utf-8"));
 
         }
         System.out.println(sb.toString());

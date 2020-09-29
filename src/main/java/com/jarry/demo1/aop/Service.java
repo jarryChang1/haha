@@ -24,7 +24,8 @@ public class Service {
         this.luBanService = luBanService;
         System.out.println("service create by constructor with arg");
     }
-    public void test(){
+
+    public void test() {
         System.out.println(luBanService);
     }
 

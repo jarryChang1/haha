@@ -6,7 +6,7 @@ package com.jarry.demo1.java3y.ProxyMode;
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-02 17:24
  */
-public class Java3y implements Programmer{
+public class Java3y implements Programmer {
 
     @Override
     public void coding() {

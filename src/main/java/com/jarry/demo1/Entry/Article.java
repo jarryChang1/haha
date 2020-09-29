@@ -19,10 +19,11 @@ import java.util.Date;
  * indexName :文档的索引的名字，唯一标识
  * type : 文档的类型 doc ppt xls story product
  * shards :数据库分片个数  默认将你的数据存6份，5个主份，1个备份。
+ *
  * @CreateTime: 2019-09-29 11:51
  */
 //indexName  索引库的名称，indexStoreType 索引文件储存类型，
-@Document(indexName = "es_article",type = "article",indexStoreType = "fs",shards = 5,replicas = 1)
+@Document(indexName = "es_article", type = "article", indexStoreType = "fs", shards = 5, replicas = 1)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,15 +31,15 @@ public class Article extends BaseRowModel implements Serializable {
 
     private static Article article;
     @Id
-    @ExcelProperty(value = "ID",index = 0)
+    @ExcelProperty(value = "ID", index = 0)
     private Long id;
-    @ExcelProperty(value = "标题",index = 1)
+    @ExcelProperty(value = "标题", index = 1)
     private String title;//标题
-    @ExcelProperty(value = "摘要",index = 2)
+    @ExcelProperty(value = "摘要", index = 2)
     private String abstracts;//摘要
-    @ExcelProperty(value = "内容",index = 3)
+    @ExcelProperty(value = "内容", index = 3)
     private String content;//内容
-    @ExcelProperty(value = "发表时间",index = 4)
+    @ExcelProperty(value = "发表时间", index = 4)
     private Date postTime;//发表时间
 
     @Override

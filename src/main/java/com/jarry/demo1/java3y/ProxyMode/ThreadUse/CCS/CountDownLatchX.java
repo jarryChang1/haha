@@ -9,13 +9,13 @@ import java.util.concurrent.CountDownLatch;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.ThreadUse.CCS
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-23 17:18
- *
+ * <p>
  * CountDownLatch(闭锁)
  * 某个线程等待其他线程执行完毕后，它才执行(其他线程等待某个线程执行完毕后，它才执行)
- *
+ * <p>
  * CyclicBarrier(栅栏)
  * 一组线程互相等待至某个状态，这组线程再同时执行。
- *
+ * <p>
  * Semaphore(信号量)
  * 控制一组线程同时执行。
  */
@@ -52,8 +52,9 @@ public class CountDownLatchX {
             }).start();
         }
     }
+
     @Test
-    public void test1(){
+    public void test1() {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
         // 3y线程启动

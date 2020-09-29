@@ -18,13 +18,13 @@ public class RandomTest {
     public static Random localRandom = new Random();
 
     @Test
-    public int test1(){
+    public int test1() {
         List list = new ArrayList();
         list.add(1);
         list.add(2);
         int i = localRandom.nextInt(list.size());
 
-        int j = (int)list.get(i);
+        int j = (int) list.get(i);
 //        System.out.println(j);
         return j;
     }
@@ -33,7 +33,7 @@ public class RandomTest {
     @Test
     public void main() {
         int count = 0;
-        for (int i = 0;i < 100;i++){
+        for (int i = 0; i < 100; i++) {
             int j = this.test1();
             if (j == 2) count++;
         }

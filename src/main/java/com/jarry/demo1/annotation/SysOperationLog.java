@@ -15,8 +15,9 @@ import java.lang.annotation.*;
 public @interface SysOperationLog {
 
     String remark();
+
     /**
-    1 增加，2删除，3修改，4导出。//查询、登录等
+     * 1 增加，2删除，3修改，4导出。//查询、登录等
      */
     int operationType();
 }

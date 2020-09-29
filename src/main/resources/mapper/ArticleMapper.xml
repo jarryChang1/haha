@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jarry.demo1.mapper.ArticleMapper">
     <resultMap type="com.jarry.demo1.Entry.Article" id="article">
-        <result column="ID" property="id" />
-        <result column="TITLE" property="title" />
-        <result column="ABSTRACTS" property="abstracts" />
-        <result column="CONTENT" property="content" />
-        <result column="CREATE_TIME" property="postTime" />
+        <result column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="ABSTRACTS" property="abstracts"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATE_TIME" property="postTime"/>
     </resultMap>
 
     <select id="getOne" resultMap="article">
-    SELECT  * FROM  article WHERE ID = #{id}
+        SELECT * FROM article WHERE ID = #{id}
     </select>
 
 </mapper>

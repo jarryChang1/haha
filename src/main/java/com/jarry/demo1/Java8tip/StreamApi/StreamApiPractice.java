@@ -16,23 +16,25 @@ import static java.util.stream.Collectors.toList;
  */
 public class StreamApiPractice {
     List<UserBean> users = Arrays.asList(
-            new UserBean("李红",22,22,34),
-            new UserBean("赵四",36,22,46),
-            new UserBean("王五",22,22,33),
-            new UserBean("张三",58,22,47)
+            new UserBean("李红", 22, 22, 34),
+            new UserBean("赵四", 36, 22, 46),
+            new UserBean("王五", 22, 22, 33),
+            new UserBean("张三", 58, 22, 47)
     );
+
     //用map、reduce数总数
     @Test
-    public void test1(){
+    public void test1() {
         System.out.println(users.stream()
                 .map(e -> 1)
                 .reduce(Integer::sum));
     }
-    String[] words = new String[]{"Hello","World"};
+
+    String[] words = new String[]{"Hello", "World"};
 
 
     @Test
-    public void test2(){
+    public void test2() {
 
         List<String[]> a1 = Arrays.stream(words)
                 .map(word -> word.split(""))

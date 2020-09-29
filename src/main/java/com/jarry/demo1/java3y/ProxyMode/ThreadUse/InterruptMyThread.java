@@ -5,18 +5,18 @@ package com.jarry.demo1.java3y.ProxyMode.ThreadUse;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.ThreadUse
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-04 11:51
- *
- *
+ * <p>
+ * <p>
  * 通过interrupt标志来告诉线程怎么做操作
  * Thread t1 = new Thread( new Runnable(){
- *     public void run(){
- *         // 若未发生中断，就正常执行任务
- *         while(!Thread.currentThread.isInterrupted()){
- *             // 正常任务代码……
- *         }
- *         // 中断的处理代码……
- *         doSomething();
- *     }
+ * public void run(){
+ * // 若未发生中断，就正常执行任务
+ * while(!Thread.currentThread.isInterrupted()){
+ * // 正常任务代码……
+ * }
+ * // 中断的处理代码……
+ * doSomething();
+ * }
  * } ).start();
  */
 public class InterruptMyThread {
@@ -43,21 +43,21 @@ public class InterruptMyThread {
 
         try {
             Thread.sleep(3100);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("In main");
             e.printStackTrace();
         }
         t.interrupt();
     }
 
-    Runnable runnable = () ->{
+    Runnable runnable = () -> {
         int i = 0;
         try {
-            while (i < 1000){//本来要输出1000次的
+            while (i < 1000) {//本来要输出1000次的
                 Thread.sleep(500);
                 System.out.println(i++);
             }
-        }catch (InterruptedException e){//结果调用了interrupt;抛出了中断异常。
+        } catch (InterruptedException e) {//结果调用了interrupt;抛出了中断异常。
             //其实他还活着、还未被中断；in runnable
             /**main中interrupt，抛出了异常，改阻塞线程（睡眠半秒钟立马停止阻塞）
              * ，在catch方法 还存活着，中断标志位设置为了false*/

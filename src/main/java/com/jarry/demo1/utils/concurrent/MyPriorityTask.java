@@ -1,4 +1,5 @@
 package com.jarry.demo1.utils.concurrent;
+
 import java.util.concurrent.TimeUnit;
 
 public class MyPriorityTask implements Runnable, Comparable<MyPriorityTask> {

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LuBanService {
 
-    public LuBanService(){
+    public LuBanService() {
         System.out.println("luBan create-------------");
     }
 
@@ -20,7 +20,7 @@ public class LuBanService {
         AnnotationConfigApplicationContext ac = new
                 // config类主要完成对类的扫描
                 AnnotationConfigApplicationContext(Config.class);
-        Service service =  ac.getBean(Service.class);
+        Service service = ac.getBean(Service.class);
         service.test();
     }
 }

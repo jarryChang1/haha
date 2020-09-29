@@ -13,7 +13,7 @@ public class ElectricBrake {
     private Fridge fridge = new Fridge();
 
     //关闭所有电器
-    public void turnOffAll(){
+    public void turnOffAll() {
         television.turnOffTV();
         computer.turnOffCom();
         fridge.turnOff();

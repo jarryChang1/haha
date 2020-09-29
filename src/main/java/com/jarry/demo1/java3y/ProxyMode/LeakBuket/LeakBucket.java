@@ -27,8 +27,8 @@ public class LeakBucket {
                     try {
                         rateLimiter.acquire();
                         System.out.println("Accessing:" + no + ",time:"
-                        + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
-                    }catch (Exception e){
+                                + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -37,18 +37,20 @@ public class LeakBucket {
         }
         exex.shutdown();
     }
+
     long timeStamp = System.currentTimeMillis();//上次时间戳
     int capacity;//桶的容量
     int rate;//速率
     long water;//水量
-    boolean grant(){//补水
+
+    boolean grant() {//补水
         long now = System.currentTimeMillis();
-        water = Math.max(0L,water - (now - timeStamp)*rate);//water - （时间差）*速率 == 水量
+        water = Math.max(0L, water - (now - timeStamp) * rate);//water - （时间差）*速率 == 水量
         timeStamp = now;//时间戳刷新
-        if (water < capacity){
+        if (water < capacity) {
             water++;
             return true;
-        }else {
+        } else {
             return false;
         }
     }

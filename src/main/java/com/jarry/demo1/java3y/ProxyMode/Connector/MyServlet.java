@@ -2,7 +2,10 @@ package com.jarry.demo1.java3y.ProxyMode.Connector;
 
 import javax.servlet.*;
 import java.io.IOException;
-    /**Servlet是单例的*/
+
+/**
+ * Servlet是单例的
+ */
 /*
  * @BelongsProject: demo1
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.Connector

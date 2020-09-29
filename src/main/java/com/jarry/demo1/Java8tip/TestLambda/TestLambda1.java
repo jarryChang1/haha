@@ -18,40 +18,41 @@ import java.util.function.BiFunction;
  */
 public class TestLambda1 {
     List<UserBean> users = Arrays.asList(
-            new UserBean("ss",22,22,33),
-            new UserBean("rs",22,22,33),
-            new UserBean("ts",22,22,33),
-            new UserBean("qs",22,22,33)
+            new UserBean("ss", 22, 22, 33),
+            new UserBean("rs", 22, 22, 33),
+            new UserBean("ts", 22, 22, 33),
+            new UserBean("qs", 22, 22, 33)
     );
 
     @Test
-    public  void test1(){
-        Collections.sort(users,(u1,u2)->{
-            if (u1.age == u2.age){
-                return u1.name.compareTo(u2.name);
-            }
-            return Integer.compare(u1.age,u2.age);
-        }
+    public void test1() {
+        Collections.sort(users, (u1, u2) -> {
+                    if (u1.age == u2.age) {
+                        return u1.name.compareTo(u2.name);
+                    }
+                    return Integer.compare(u1.age, u2.age);
+                }
         );
-        for (UserBean user:users
-             ) {
+        for (UserBean user : users
+        ) {
             System.out.println(user);
         }
     }
 
 
     @Test
-    public void test2(){
+    public void test2() {
         //控制层
-        Op(100L,200L,(x,y) -> x+y);
+        Op(100L, 200L, (x, y) -> x + y);
 
-        BiFunction<Integer,Integer,Integer> biFunction = (x,y) -> x+y;
-        Integer i =biFunction.apply(200,200);
+        BiFunction<Integer, Integer, Integer> biFunction = (x, y) -> x + y;
+        Integer i = biFunction.apply(200, 200);
         System.out.println(i);
     }
+
     //逻辑服务层
-    public void Op(Long l1,Long l2,MyFunction1<Long,Long> myFunction1){
-        System.out.println(myFunction1.getValue(l1,l2));
+    public void Op(Long l1, Long l2, MyFunction1<Long, Long> myFunction1) {
+        System.out.println(myFunction1.getValue(l1, l2));
     }
 
 }

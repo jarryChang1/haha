@@ -18,7 +18,7 @@ public class Main {
                 System.out.println(person1 + "正在吃饭呢!");
 
                 //打电话让3y少吃点
-   /*             call();*/
+                /*             call();*/
                 //person这个人处理锻炼，减肥
                 person1.doExercise();
             }

@@ -16,11 +16,11 @@ public class Client {
     public static void main(String[] args) throws IOException {
         System.out.println("客户端启动......");
 
-        Socket socket = new Socket("127.0.0.1",43438);
+        Socket socket = new Socket("127.0.0.1", 43438);
 
         OutputStream os = socket.getOutputStream();
 
-        Scanner sc =new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         String message = sc.nextLine();
         os.write(message.getBytes("utf-8"));
         os.flush();
@@ -32,8 +32,8 @@ public class Client {
         byte[] bytes = new byte[1024];
         int len = 0;
         StringBuilder sb = new StringBuilder();
-        while ((len = inputStream.read(bytes)) != -1){
-           sb.append(new String(bytes,0,len,"utf-8"));
+        while ((len = inputStream.read(bytes)) != -1) {
+            sb.append(new String(bytes, 0, len, "utf-8"));
         }
         System.out.println(sb.toString());
 

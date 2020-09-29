@@ -43,7 +43,7 @@ import java.util.concurrent.*;
 @Slf4j
 @RestController
 public class ESController {
-//    @Autowired
+    //    @Autowired
 //    ArticleSearchRepository articleSearchRepository;
     @Autowired
     private BBossESStarter bbossESStarterDefault;
@@ -54,7 +54,8 @@ public class ESController {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
-//    @Resource
+
+    //    @Resource
 //    private ElasticsearchTemplate elasticsearchTemplate;
 //
 //    //创建文档索引
@@ -142,79 +143,80 @@ public class ESController {
 //            System.out.println(article);
 //        }
 //    }
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
 /**
  * 必须重写序列化器，否则@Cacheable注解的key会报类型转换错误
  *
  */
-     final String target = "\"";
+        final String target = "\"";
 
-     final String replacement = "";
-         Object object = "SIP_NUMBER_DATA_1108";
-            String string = JSON.toJSONString(object);
-            string = string.replace(target, replacement);
-    byte[] utf8s = new byte[0];
-    try {
-        utf8s = string.getBytes("UTF8");
-    } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
+        final String replacement = "";
+        Object object = "SIP_NUMBER_DATA_1108";
+        String string = JSON.toJSONString(object);
+        string = string.replace(target, replacement);
+        byte[] utf8s = new byte[0];
+        try {
+            utf8s = string.getBytes("UTF8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(utf8s);
+
+        ExecutorService service = Executors.newCachedThreadPool();
+        new PriorityQueue<>();
+        new PriorityBlockingQueue<>(16, new Comparator<Object>() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+        });
+        service = new ThreadPoolExecutor(10, 100, 0, TimeUnit.SECONDS, new PriorityBlockingQueue<>(20));
+        //需要实现任务中自带优先级
     }
 
-    System.out.println(utf8s);
-
-    ExecutorService service = Executors.newCachedThreadPool();
-    new PriorityQueue<>();
-    new PriorityBlockingQueue<>(16, new Comparator<Object>() {
-        @Override
-        public int compare(Object o1, Object o2) {
-            return 0;
-        }
-    });
-    service = new ThreadPoolExecutor(10,100,0, TimeUnit.SECONDS,new PriorityBlockingQueue<>(20));
-    //需要实现任务中自带优先级
-}
     @GetMapping("esScrolltest")
-    public void esScrolltest(){
-        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs","esmapper/scroll.xml");
+    public void esScrolltest() {
+        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs", "esmapper/scroll.xml");
         //scroll分页检索
-        long startTime=System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         Map params = new HashMap();
         params.put("size", 10000);//每页10000条记录
         //scroll上下文有效期1分钟,每次scroll检索的结果都会合并到总得结果集中；数据量大时存在oom内存溢出风险，大数据量时可以采用handler函数来处理每次scroll检索的结果(后面介绍)
-        ESDatas<Map> response = clientUtil.scroll("1089_13/_search","scrollQuery","1m",params,Map.class);
+        ESDatas<Map> response = clientUtil.scroll("1089_13/_search", "scrollQuery", "1m", params, Map.class);
         List<Map> datas = response.getDatas();
         long realTotalSize = datas.size();
         long totalSize = response.getTotalSize();
-        long endTime=System.currentTimeMillis();
-        System.out.println("totalSize:"+totalSize);
-        System.out.println("realTotalSize:"+realTotalSize);
-        System.out.println("countAll:"+clientUtil.countAll("1089_13"));
-        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
+        long endTime = System.currentTimeMillis();
+        System.out.println("totalSize:" + totalSize);
+        System.out.println("realTotalSize:" + realTotalSize);
+        System.out.println("countAll:" + clientUtil.countAll("1089_13"));
+        System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
     }
 
     @GetMapping("esScroll")
-    public void esScroll(){
-        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs","esmapper/scroll.xml");
+    public void esScroll() {
+        ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("logs", "esmapper/scroll.xml");
         //scroll分页检索
         System.out.println(clientUtil);
-        long startTime=System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         Map params = new HashMap();
         params.put("taskId", 489);//每页10000条记录
         //scroll上下文有效期1分钟,每次scroll检索的结果都会合并到总得结果集中；数据量大时存在oom内存溢出风险，大数据量时可以采用handler函数来处理每次scroll检索的结果(后面介绍)
-        MapRestResponse response = clientUtil.search("1089_13/_search","scrollQuery",params);
+        MapRestResponse response = clientUtil.search("1089_13/_search", "scrollQuery", params);
         MapSearchHits list = response.getSearchHits();
-        Long l = ResultUtil.longValue(list.getTotal(),0L);
+        Long l = ResultUtil.longValue(list.getTotal(), 0L);
         System.out.println(l);
         long time = response.getTook();
 //        System.out.println(datas.subList(0,111));
         long realTotalSize = response.getCount();
         long totalSize = response.getCount();
-        System.out.println("totalSize:"+totalSize);
-        System.out.println("realTotalSize:"+realTotalSize);
-        System.out.println("countAll:"+clientUtil.countAll("1089_13"));
-        long endTime=System.currentTimeMillis();
-        System.out.println("程序运行时间： "+time+"ms");
+        System.out.println("totalSize:" + totalSize);
+        System.out.println("realTotalSize:" + realTotalSize);
+        System.out.println("countAll:" + clientUtil.countAll("1089_13"));
+        long endTime = System.currentTimeMillis();
+        System.out.println("程序运行时间： " + time + "ms");
 //        long startTime=System.currentTimeMillis();
 //        Map params = new HashMap();
 //        params.put("size", 5000);//每页5000条记录
@@ -233,40 +235,41 @@ public static void main(String[] args) {
     }
 
     @GetMapping("/esQuery")
-    public void esQuery(){
+    public void esQuery() {
         System.out.println(bbossESStarterDefault);
         //验证环境，获取es状态
-        boolean exist = bbossESStarterDefault.getRestClient().existIndiceType("1089_13","1089_13");
+        boolean exist = bbossESStarterDefault.getRestClient().existIndiceType("1089_13", "1089_13");
         System.out.println(exist);
-        exist = ElasticSearchHelper.getRestClientUtil("logs").existIndiceType("1089_13","1089_13");//指定集群名称logs
+        exist = ElasticSearchHelper.getRestClientUtil("logs").existIndiceType("1089_13", "1089_13");//指定集群名称logs
 
 //        exist = bbossESStarterDefault.getRestClient("default").existIndiceType("es_article","article");
-        System.out.println("logs twitter/tweet:"+exist);
+        System.out.println("logs twitter/tweet:" + exist);
         exist = ElasticSearchHelper.getRestClientUtil().existIndice("1089_29");//指定集群名称default;
         System.out.println(exist);
         exist = ElasticSearchHelper.getRestClientUtil().existIndice("demo1");
         System.out.println(exist);
     }
+
     @GetMapping("/DB2ES")
-    public void DataBase2ES(String index,String type,String tablename){//（不同需求）可以多传入索引字段，加快效率
+    public void DataBase2ES(String index, String type, String tablename) {//（不同需求）可以多传入索引字段，加快效率
         DB2ESImportBuilder importBuilder = DB2ESImportBuilder.newInstance();
         ClientInterface clientInterface = bbossESStarterDefault.getRestClient();
 
         if (!clientInterface.existIndice(index)) {
-            log.info("--------------------------------index not exist:{}",index);
+            log.info("--------------------------------index not exist:{}", index);
             clientInterface.createIndiceMapping(index, null);
         }
         Long count = clientInterface.countAll(index);
         //数据源相关配置，可选项，可以在外部启动数据源
         importBuilder.setDbName("mybase")
                 .setDbDriver("com.mysql.jdbc.Driver") //数据库驱动程序，必须导入相关数据库的驱动jar包
-                .setDbUrl(url+"&useCursorFetch=true") //通过useCursorFetch=true启用mysql的游标fetch机制，否则会有严重的性能隐患，useCursorFetch必须和jdbcFetchSize参数配合使用，否则不会生效
+                .setDbUrl(url + "&useCursorFetch=true") //通过useCursorFetch=true启用mysql的游标fetch机制，否则会有严重的性能隐患，useCursorFetch必须和jdbcFetchSize参数配合使用，否则不会生效
                 .setDbUser(username)
                 .setDbPassword(password)
                 .setValidateSQL("select 1")
                 .setUsePool(false);//是否使用连接池u
         //指定导入数据的sql语句，必填项，可以设置自己的提取逻辑
-        importBuilder.setSql("select * from "+tablename);
+        importBuilder.setSql("select * from " + tablename);
         /**
          * es相关配置
          */
@@ -284,13 +287,13 @@ public static void main(String[] args) {
         DataStream dataStream = importBuilder.builder();
         dataStream.execute();
         long end = System.currentTimeMillis();
-        log.info("导入用时{}秒,导入文档数量：{}",(end-start)/1000,clientInterface.countAll(index)-count);
+        log.info("导入用时{}秒,导入文档数量：{}", (end - start) / 1000, clientInterface.countAll(index) - count);
 
     }
 
     @PostMapping("aa")
     public String aa(@RequestBody String message) {
-        log.info("-----------+++++++++++++++++++++++++++++++"+message);
+        log.info("-----------+++++++++++++++++++++++++++++++" + message);
         return message;
     }
 }

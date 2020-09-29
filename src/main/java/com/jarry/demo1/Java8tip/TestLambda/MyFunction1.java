@@ -7,6 +7,6 @@ package com.jarry.demo1.Java8tip.TestLambda;
  * @CreateTime: 2019-09-24 17:20
  */
 @FunctionalInterface
-public interface MyFunction1<T,R> {
-     R getValue(T t1,T t2);
+public interface MyFunction1<T, R> {
+    R getValue(T t1, T t2);
 }

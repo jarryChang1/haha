@@ -25,7 +25,7 @@ public class Funnel {
      * 构造函数
      *
      * @param capatity 容量
-     * @param rate 每秒漏水数量
+     * @param rate     每秒漏水数量
      */
     public Funnel(int capatity, int rate) {
         this.capacity = capatity;
@@ -53,6 +53,7 @@ public class Funnel {
 
     /**
      * 漏水。桶里水量不够就返回false
+     *
      * @param quota 漏水量
      * @return 是否漏水成功
      */
@@ -68,6 +69,7 @@ public class Funnel {
 
     /**
      * 漏水。没水就阻塞直到蓄满足够的水
+     *
      * @param quota 要漏的数量
      */
     public void watering(int quota) {

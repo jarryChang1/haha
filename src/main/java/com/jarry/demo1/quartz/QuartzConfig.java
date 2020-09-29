@@ -16,12 +16,12 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @Configuration
 public class QuartzConfig {
-    public Scheduler scheduler() throws SchedulerException{
+    public Scheduler scheduler() throws SchedulerException {
 
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 
         Scheduler scheduler = schedulerFactory.getScheduler();
-        return  scheduler;
+        return scheduler;
     }
 
 }

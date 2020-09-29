@@ -14,35 +14,11 @@ import java.util.HashMap;
  * @BelongsPackage: com.jarry.demo1.rabbitmq
  * @Author: Jarry.Chang
  * @CreateTime: 2019-10-17 10:51
- *
- *
- *
- *
- *====================停用
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * ====================停用
  */
 public class Receiver {
     private RabbitAdmin rabbitAdmin;
@@ -75,23 +51,25 @@ public class Receiver {
         rabbitTemplate.convertAndSend(exchangeName, queueName, msg);
     }
 
-    public void declare(String queueName)  {
-        Queue queue=new Queue(queueName);
-        TopicExchange exchange=new TopicExchange(exchangeName,true,true);
+    public void declare(String queueName) {
+        Queue queue = new Queue(queueName);
+        TopicExchange exchange = new TopicExchange(exchangeName, true, true);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareQueue(queue);
-        rabbitAdmin.declareBinding(new Binding(queueName,Binding.DestinationType.QUEUE,exchangeName,queueName,new HashMap<>()));
+        rabbitAdmin.declareBinding(new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, queueName, new HashMap<>()));
     }
 
-    public void send(String queueName,Object msg)  {
-        rabbitTemplate.convertAndSend(exchangeName,queueName,msg);
+    public void send(String queueName, Object msg) {
+        rabbitTemplate.convertAndSend(exchangeName, queueName, msg);
     }
 
     public Object receive(String queueName) {
         return rabbitTemplate.receiveAndConvert(queueName);
     }
 
-    /** 发送延时队列消息. */
+    /**
+     * 发送延时队列消息.
+     */
     public void sendToDelayQueue(Object msg) {
         rabbitTemplate.convertAndSend(EXCHANGE_DELAY_BEGIN, QUEUE_DELAY_BEGIN, msg);
     }

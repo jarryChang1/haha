@@ -14,14 +14,14 @@ import java.util.concurrent.Executors;
  * @CreateTime: 2019-12-24 16:40
  */
 @Slf4j
-public class BubbleSort  {
+public class BubbleSort {
 
     public static void main(String[] args) {
         ExecutorService service = Executors.newCachedThreadPool();
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                log.info("线程池执行中，当前线程是:{}",Thread.currentThread().getName());
+                log.info("线程池执行中，当前线程是:{}", Thread.currentThread().getName());
                 try {
                     Thread.sleep(300);
                 } catch (InterruptedException e) {

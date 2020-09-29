@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-
 /**
  * @BelongsProject: demo1
  * @BelongsPackage: com.jarry.demo1.rabbitmq
@@ -25,15 +24,15 @@ public class MsgReceiver {
 
 
     @RabbitHandler
-    public void process(String content, Channel channel, Message message)throws Exception{
+    public void process(String content, Channel channel, Message message) throws Exception {
         try {
             Thread.sleep(3000);
             System.out.println("睡眠3秒");
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
-        System.out.println("receiver success = "+ content);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        System.out.println("receiver success = " + content);
 
         log.info("接收处理队列A当中的消息： " + content);
     }

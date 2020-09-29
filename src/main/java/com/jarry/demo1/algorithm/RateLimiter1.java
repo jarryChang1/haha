@@ -28,31 +28,33 @@ public class RateLimiter1 {
             f.setAccessible(true);
             unsafe = (Unsafe) f.get(clazz);
             valueOffset = unsafe.objectFieldOffset(RateLimiter1.class.getDeclaredField("token"));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Error(e);
         }
     }
-    public RateLimiter1(int token){
+
+    public RateLimiter1(int token) {
         this.originToken = token;
         this.token = token;
     }
+
     /**
      * 获取一个令牌
      */
-    public boolean acquire(){
+    public boolean acquire() {
         int current = token;
-        if (current <= 0){
+        if (current <= 0) {
             current = originToken;
         }
         long expect = 1000;//max wait 1s
-        long future = System.currentTimeMillis() +expect;
-        while (current > 0){
-            if (compareAndSet(current,current-1)){//current
+        long future = System.currentTimeMillis() + expect;
+        while (current > 0) {
+            if (compareAndSet(current, current - 1)) {//current
                 return true;
             }
             current = token;
-            if (current <= 0 && expect > 0){//expect超时时间
-                synchronized (lock){
+            if (current <= 0 && expect > 0) {//expect超时时间
+                synchronized (lock) {
                     try {
                         lock.wait(expect);
                     } catch (InterruptedException e) {
@@ -60,7 +62,7 @@ public class RateLimiter1 {
                     }
                 }
                 current = token;
-                if (current <= 0){
+                if (current <= 0) {
                     current = originToken;
                 }
                 expect = future - System.currentTimeMillis();
@@ -69,17 +71,17 @@ public class RateLimiter1 {
         return false;
     }
 
-    private boolean compareAndSet(int expect, int update){
-        return unsafe.compareAndSwapInt(this,valueOffset,expect,update);
+    private boolean compareAndSet(int expect, int update) {
+        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);
     }
 
     /**
      * 补充令牌
      */
-    public void supplement(final ExecutorService executorService){
+    public void supplement(final ExecutorService executorService) {
         this.token = originToken;
-        executorService.execute(() ->{
-            synchronized (lock){
+        executorService.execute(() -> {
+            synchronized (lock) {
                 lock.notifyAll();
             }
         });

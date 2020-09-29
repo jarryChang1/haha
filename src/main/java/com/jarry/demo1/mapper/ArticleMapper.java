@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @CreateTime: 2019-11-13 14:31
  */
 @Component
-public interface ArticleMapper extends BaseMapper{
-//    @Select("SELECT * FROM article WHERE ID = #{id}")
+public interface ArticleMapper extends BaseMapper {
+    //    @Select("SELECT * FROM article WHERE ID = #{id}")
     Article getOne(Integer id);
 }

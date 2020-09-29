@@ -26,21 +26,21 @@ import java.util.Date;
 public class SysLogAspects {
 
     @Before(value = "execution(* com.jarry.demo1.controller.*.*(..))")
-    public void saveSysLog(JoinPoint joinPoint){
+    public void saveSysLog(JoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         String describe = "";
         int operationType = 0;
         SysOperationLog log = method.getAnnotation(SysOperationLog.class);
-        if (log != null){
-            describe = log.remark() != null ? log.remark():"未知";
+        if (log != null) {
+            describe = log.remark() != null ? log.remark() : "未知";
             operationType = log.operationType() != 0 ? log.operationType() : 0;
         }
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = method.getName();
         //请求参数
         Object[] args = joinPoint.getArgs();
-        Object[] arguments  = new Object[args.length];
+        Object[] arguments = new Object[args.length];
         //servletRequest、servletResponse,需排除，否则java.lang.IllegalStateException:
         // 0还有mutipartFile没用。
         for (int i = 0; i < args.length; i++) {
@@ -53,7 +53,7 @@ public class SysLogAspects {
         }
         //参数数组转换为json.同时可以过滤掉无用参数
         String params = "";
-        if (arguments != null){
+        if (arguments != null) {
             params = JSONObject.toJSONString(arguments);
         }
         //拿到用户的信息
@@ -61,7 +61,7 @@ public class SysLogAspects {
         OperationLog operationLog = new OperationLog();
         operationLog.setId(1L);
         operationLog.setCreateTime(new Date());
-        operationLog.setMethod(className+"."+methodName);
+        operationLog.setMethod(className + "." + methodName);
         operationLog.setOperationDescribe(describe);
         operationLog.setOperationType(operationType);
         operationLog.setParams(params);

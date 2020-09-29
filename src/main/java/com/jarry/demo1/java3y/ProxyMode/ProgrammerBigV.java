@@ -10,11 +10,11 @@ public class ProgrammerBigV implements Programmer {
 
     private Java3y java3y;
 
-    public ProgrammerBigV(Java3y java3y){
+    public ProgrammerBigV(Java3y java3y) {
         this.java3y = java3y;
     }
 
-    public void upvote(){
+    public void upvote() {
         System.out.println("程序员大V点赞评论收藏转发!");
     }
 

@@ -13,14 +13,15 @@ public class MessageTask {
     private String taskName;
 
     //增加private的构造函数
-    private MessageTask(Builder builder){
+    private MessageTask(Builder builder) {
         this.taskId = builder.taskId;
         this.content = builder.content;
         this.messageId = builder.messageId;
         this.taskName = builder.taskName;
     }
+
     //创建内部类(静态的)
-    public static class Builder{
+    public static class Builder {
         private String taskId;
         private String content;
         private String messageId;
@@ -46,7 +47,7 @@ public class MessageTask {
             return this;
         }
 
-        public MessageTask build(){
+        public MessageTask build() {
             return new MessageTask(this);
         }
     }

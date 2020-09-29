@@ -8,7 +8,7 @@ import java.util.List;
  * @Author: Jarry.Chang
  * @CreateTime: 2020-08-26 11:16
  */
-public  abstract class BaseSqlParser {
+public abstract class BaseSqlParser {
 
     protected String sqlString;
 
@@ -17,13 +17,12 @@ public  abstract class BaseSqlParser {
     //如果有or，or前后的查询结果求并集，全部执行下去
     //如果没有or，则先过滤and前面的,
     protected abstract void splitSql();
+
     protected abstract boolean doparse();
 
-    public BaseSqlParser(String sqlString){
+    public BaseSqlParser(String sqlString) {
         this.sqlString = sqlString;
     }
-
-
 
 
 }

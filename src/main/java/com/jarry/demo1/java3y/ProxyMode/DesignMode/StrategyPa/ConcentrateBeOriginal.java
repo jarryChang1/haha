@@ -6,10 +6,11 @@ package com.jarry.demo1.java3y.ProxyMode.DesignMode.StrategyPa;
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-25 10:50
  */
+
 /**
  * 专注原创（ConcreteStrategy）
  */
-public class ConcentrateBeOriginal implements IncreaseFansStrategy{
+public class ConcentrateBeOriginal implements IncreaseFansStrategy {
 
     @Override
     public void action() {

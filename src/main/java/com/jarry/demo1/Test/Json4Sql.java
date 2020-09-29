@@ -40,8 +40,8 @@ public class Json4Sql {
             String first = list.get(i);//解析冒号
             int i1 = first.lastIndexOf(":");
             String before = first.substring(0, i1);
-            String after = first.substring(i1+1);
-            map.put(before.replaceAll("\"",""),after);
+            String after = first.substring(i1 + 1);
+            map.put(before.replaceAll("\"", ""), after);
         }
         /*sql语法分析：
          * 1、用一位int来表示返回结果为true或者false；查询条件去|操作或者&操作他
@@ -51,25 +51,29 @@ public class Json4Sql {
         String[] split = sql.split(" ");
         ///每次取3个来判断
         int flag = -1;
-        for (int i = 0; i < split.length; i+=4) {
+        for (int i = 0; i < split.length; i += 4) {
             int tmpCanMatch = 0;
             String key = split[i];
-            String op = split[i+1];
-            String value = split[i+2];
-            switch (op){
-                case ">": if (Integer.valueOf(value) < Integer.valueOf(map.get(key))) tmpCanMatch = 1;
-                case "<": if (Integer.valueOf(value) > Integer.valueOf(map.get(key))) tmpCanMatch = 1;
-                case "=": if (value.equals(map.get(key))) tmpCanMatch = 1;
-                case "like": if (map.get(key).contains(value.replaceAll("%","")))tmpCanMatch = 1;
+            String op = split[i + 1];
+            String value = split[i + 2];
+            switch (op) {
+                case ">":
+                    if (Integer.valueOf(value) < Integer.valueOf(map.get(key))) tmpCanMatch = 1;
+                case "<":
+                    if (Integer.valueOf(value) > Integer.valueOf(map.get(key))) tmpCanMatch = 1;
+                case "=":
+                    if (value.equals(map.get(key))) tmpCanMatch = 1;
+                case "like":
+                    if (map.get(key).contains(value.replaceAll("%", ""))) tmpCanMatch = 1;
             }
-            if (flag == 1){
-                canMatch |=tmpCanMatch;
-            }else canMatch &=tmpCanMatch;
+            if (flag == 1) {
+                canMatch |= tmpCanMatch;
+            } else canMatch &= tmpCanMatch;
 
-            if (split.length > 3+i ){
-                if (split[i+3].equals("or")) {
+            if (split.length > 3 + i) {
+                if (split[i + 3].equals("or")) {
                     flag = 1;
-                }else flag = -1;
+                } else flag = -1;
             }
         }
         return canMatch == 1;
@@ -106,19 +110,19 @@ public class Json4Sql {
             String first = list.get(i);//解析冒号
             int i1 = first.lastIndexOf(":");
             String before = first.substring(0, i1);
-            String after = first.substring(i1+1);
-            map.put(before.replaceAll("\"",""),after);
+            String after = first.substring(i1 + 1);
+            map.put(before.replaceAll("\"", ""), after);
         }
 
         /**sql解析*/
         int canMatch = 0;
         OrParser orParser = new OrParser(map);
         AndParser andParser = new AndParser(map);
-        if (sql.contains("or")){
+        if (sql.contains("or")) {
             String[] ors = sql.split("or");
             for (int i = 0; i < ors.length; i++) {
 
-               if (ors[i].contains("and")){
+                if (ors[i].contains("and")) {
                     String[] ands = ors[i].split("and");
                     for (int j = 0; j < ors.length; j++) {
                         System.out.println(ands[j]);
@@ -128,9 +132,9 @@ public class Json4Sql {
                         //如果解析完后值为false,直接返回
                     }
                     if (canMatch == 1) return true;
-                }else {
-                   canMatch = orParser.doParse(ors[i], canMatch);
-               }
+                } else {
+                    canMatch = orParser.doParse(ors[i], canMatch);
+                }
             }
         }//如果有or的情况下,一次解析数组长度最小的sql，如果有一个true，则返回true;
         else {
@@ -138,7 +142,7 @@ public class Json4Sql {
             //如果一个解析失败，则返回false;
             String[] ands = sql.split("and");
 //            OrParser orParser = new OrParser(map);
-            PriorityQueue queue  = new PriorityQueue();
+            PriorityQueue queue = new PriorityQueue();
             for (int i = 0; i < ands.length; i++) {
 //                if (ands[i].contains("or")){
 //                    String[] ors = ands[i].split("or");
@@ -151,26 +155,23 @@ public class Json4Sql {
 //                    }
 //                    if (canMatch == 0) return false;
 //                }
-                if (ands[i].contains("=")){
+                if (ands[i].contains("=")) {
                     wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 2);
                     queue.add(wrappedExpression);
-                }
-                else if (ands[i].contains(">")){
+                } else if (ands[i].contains(">")) {
                     wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 1);
                     queue.add(wrappedExpression);
-                }
-                else if (ands[i].contains("<")){
+                } else if (ands[i].contains("<")) {
                     wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 1);
                     queue.add(wrappedExpression);
-                }
-                else if (ands[i].contains("like")){
+                } else if (ands[i].contains("like")) {
                     wrappedExpression wrappedExpression = new wrappedExpression(ands[i], 0);
                     queue.add(wrappedExpression);
                 }
                 //根据String.contains() = 、> 、<、like来设置优先级，加入优先级队列。
             }
             //从PriorityQueue中取出去用AndParser解析;
-            while (!queue.isEmpty()){
+            while (!queue.isEmpty()) {
                 wrappedExpression remove = (wrappedExpression) queue.remove();
                 canMatch = andParser.doParse(remove.getSqlExpression(), canMatch);
                 if (canMatch == 0) return false;

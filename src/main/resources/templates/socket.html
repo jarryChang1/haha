@@ -10,10 +10,33 @@
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <style>
-        body {padding: 20px;} #console {height: 400px;overflow: auto;} .username-msg {color: orange;} .connect-msg {color: green;}.disconnect-msg {color: red;}.send-msg {color: #888}
+        body {
+            padding: 20px;
+        }
+
+        #console {
+            height: 400px;
+            overflow: auto;
+        }
+
+        .username-msg {
+            color: orange;
+        }
+
+        .connect-msg {
+            color: green;
+        }
+
+        .disconnect-msg {
+            color: red;
+        }
+
+        .send-msg {
+            color: #888
+        }
     </style>
     <script>
-        var clientId = 'user1',targetId = 'user2';
+        var clientId = 'user1', targetId = 'user2';
         var socket = io.connect('http://192.168.1.27:9092?clientid=' + clientId);
         socket.on('connect', function () {
             showMsg(':<span class="connect-msg">成功连接到服务器!</span>');
@@ -24,9 +47,11 @@
         socket.on('disconnect', function () {
             showMsg(':<span class="disconnect-msg">服务已断开！</span>');
         });
+
         function sendDisconnect() {
             socket.disconnect();
         }
+
         function sendMessage() {
             var message = $('#msg').val();
             $('#msg').val('');
@@ -37,11 +62,13 @@
             };
             socket.emit('message_event', jsonObject);
         }
+
         function showMsg(message) {
             var currentTime = "<span class='time'>" + moment().startOf('hour').fromNow() + "</span>";
             var element = $("<div>" + currentTime + "" + message + "</div>");
             $('#console').append(element);
         }
+
         $(document).keydown(function (e) {
             if (e.keyCode == 13) {
                 $('#send').click();

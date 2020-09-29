@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class forkindsThreadPool {
     @Test
-    public void test1(){
+    public void test1() {
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             final int index = i;
@@ -36,7 +36,7 @@ public class forkindsThreadPool {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
         for (int i = 0; i < 10; i++) {
             final int index = i;
@@ -54,13 +54,13 @@ public class forkindsThreadPool {
                 }
             });
         }
-        while (!fixedThreadPool.isTerminated()){
+        while (!fixedThreadPool.isTerminated()) {
             ;
         }
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
 //        scheduledThreadPool.schedule(new Runnable() {
 //
@@ -77,7 +77,7 @@ public class forkindsThreadPool {
                 System.out.println("delay 1 seconds, and excute every 3 seconds");
             }
         }, 1, 3, TimeUnit.SECONDS);
-        while (!scheduledThreadPool.isTerminated()){
+        while (!scheduledThreadPool.isTerminated()) {
             ;
         }
 
@@ -102,8 +102,8 @@ public class forkindsThreadPool {
                 }
             });
         }
-    while (!singleThreadExecutor.isTerminated()){
+        while (!singleThreadExecutor.isTerminated()) {
             ;
-    }
+        }
     }
 }

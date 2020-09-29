@@ -13,10 +13,10 @@ import java.util.concurrent.CountDownLatch;
 @Slf4j
 public class ThreadCommunication {
 
-    private  static  int sss = 0;
+    private static int sss = 0;
 
-    public static void main(String[] args)   {
-        for (int i = 0; i < 100 ; i++) {
+    public static void main(String[] args) {
+        for (int i = 0; i < 100; i++) {
             try {
                 test1();
             } catch (InterruptedException e) {

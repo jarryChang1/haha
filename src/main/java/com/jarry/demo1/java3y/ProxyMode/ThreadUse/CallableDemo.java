@@ -25,13 +25,14 @@ public class CallableDemo {
         pool.shutdown();
     }
 
-    public static class Mycallable implements Callable<Integer>{//<T>T是什么，run方法就返回什么
+    public static class Mycallable implements Callable<Integer> {//<T>T是什么，run方法就返回什么
 
         private int number;
 
-        public Mycallable(int number){
+        public Mycallable(int number) {
             this.number = number;
         }
+
         @Override
         public Integer call() throws Exception {
             int sum = 0;

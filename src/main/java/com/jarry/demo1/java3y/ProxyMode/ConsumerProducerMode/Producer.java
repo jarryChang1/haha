@@ -14,13 +14,13 @@ public class Producer implements Runnable {
 
     private volatile boolean isRunning = true;
 
-    private  final Vector sharedQueue;
+    private final Vector sharedQueue;
 
     private final int SIZE;
 
     private static AtomicInteger count = new AtomicInteger();
 
-    public Producer(Vector sharedQueue,int SIZE){
+    public Producer(Vector sharedQueue, int SIZE) {
         this.sharedQueue = sharedQueue;
         this.SIZE = SIZE;
     }
@@ -32,33 +32,34 @@ public class Producer implements Runnable {
 
         System.out.println("start producer id = " + Thread.currentThread().getId());
         try {
-            while (isRunning){
+            while (isRunning) {
                 Thread.sleep(r.nextInt(1000));
-                while (sharedQueue.size() == SIZE){
-                    synchronized (sharedQueue){
+                while (sharedQueue.size() == SIZE) {
+                    synchronized (sharedQueue) {
 
 
-                    System.out.println("Queue is full, producer " + Thread.currentThread().getId()
-                            + "is waiting, size: " + sharedQueue.size());
-                    sharedQueue.wait();
-                 }
+                        System.out.println("Queue is full, producer " + Thread.currentThread().getId()
+                                + "is waiting, size: " + sharedQueue.size());
+                        sharedQueue.wait();
+                    }
                 }
 
-            synchronized (sharedQueue){
-                data = count.incrementAndGet();
-                sharedQueue.add(data);
+                synchronized (sharedQueue) {
+                    data = count.incrementAndGet();
+                    sharedQueue.add(data);
 
-                System.out.println("producer create data:" + data + ", size : " + sharedQueue.size());
-                sharedQueue.notifyAll();
+                    System.out.println("producer create data:" + data + ", size : " + sharedQueue.size());
+                    sharedQueue.notifyAll();
                 }
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }
 
     }
-    public void stop(){
+
+    public void stop() {
         isRunning = false;
     }
 }

@@ -39,7 +39,7 @@ public class TestScrollAPI {
 //    }
 
     @Test
-    public void testSimleScrollAPIHandler(){
+    public void testSimleScrollAPIHandler() {
         ClientInterface clientUtil = ElasticSearchHelper.getConfigRestClientUtil("esmapper/scroll.xml");
         //scroll分页检索
 
@@ -51,11 +51,11 @@ public class TestScrollAPI {
             public void handle(ESDatas<Map> response, HandlerInfo handlerInfo) throws Exception {//自己处理每次scroll的结果
                 List<Map> datas = response.getDatas();
                 long totalSize = response.getTotalSize();
-                System.out.println("totalSize:"+totalSize+",datas.size:"+datas.size());
+                System.out.println("totalSize:" + totalSize + ",datas.size:" + datas.size());
             }
         });
 
-        System.out.println("response realzie:"+response.getTotalSize());
+        System.out.println("response realzie:" + response.getTotalSize());
 
     }
 

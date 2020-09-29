@@ -21,8 +21,8 @@ public class HttpUtils {
     private String authPasswd;
 
     // set HTTP authenticator. default negotiation order: GSS/SPNEGO -> Digest -> NTLM -> Basic
-    static{
-        Authenticator.setDefault (new DefaultAuthenticator());
+    static {
+        Authenticator.setDefault(new DefaultAuthenticator());
     }
 
     public HttpUtils(String host, int port, String authUser, String authPasswd) {
@@ -54,8 +54,8 @@ public class HttpUtils {
             httpConnection.setRequestProperty("Accept", "application/json");
             httpConnection.setRequestProperty("Content-Type", "application/json");
             // ADD BASIC authorization
-            String Authorization = "Basic "+Base64.getEncoder().encodeToString((this.authUser+":"+this.authPasswd).getBytes("utf-8"));
-            httpConnection.setRequestProperty("Authorization",Authorization);
+            String Authorization = "Basic " + Base64.getEncoder().encodeToString((this.authUser + ":" + this.authPasswd).getBytes("utf-8"));
+            httpConnection.setRequestProperty("Authorization", Authorization);
             httpConnection.connect();
 
             OutputStreamWriter os = new OutputStreamWriter(
@@ -65,9 +65,9 @@ public class HttpUtils {
             os.close();
 
             if (httpConnection.getResponseCode() != 200) {
-                Map<String,List<String>> headers = httpConnection.getHeaderFields();
-                for(String key:headers.keySet()){
-                    System.out.println(key+":"+headers.get(key));
+                Map<String, List<String>> headers = httpConnection.getHeaderFields();
+                for (String key : headers.keySet()) {
+                    System.out.println(key + ":" + headers.get(key));
                 }
                 return null;
             }
@@ -97,7 +97,7 @@ public class HttpUtils {
      * @param param
      * @return
      */
-    public String sendGetRequest(String strUrl,String param) {
+    public String sendGetRequest(String strUrl, String param) {
         try {
             // URL 拼接参数
             strUrl = strUrl + URLEncoder.encode(param, "UTF-8");
@@ -111,20 +111,20 @@ public class HttpUtils {
             httpConnection.setInstanceFollowRedirects(true);
             httpConnection.setRequestProperty("Accept", "application/json");
             // BASIC认证
-            String Authorization = "Basic "+Base64.getEncoder().encodeToString((this.authUser+":"+this.authPasswd).getBytes("utf-8"));
-            httpConnection.setRequestProperty("Authorization",Authorization);
+            String Authorization = "Basic " + Base64.getEncoder().encodeToString((this.authUser + ":" + this.authPasswd).getBytes("utf-8"));
+            httpConnection.setRequestProperty("Authorization", Authorization);
             httpConnection.connect();
 
             if (httpConnection.getResponseCode() != 200) {
-                Map<String,List<String>> headers = httpConnection.getHeaderFields();
-                for(String key:headers.keySet()){
-                    log.info(key+":"+headers.get(key));
+                Map<String, List<String>> headers = httpConnection.getHeaderFields();
+                for (String key : headers.keySet()) {
+                    log.info(key + ":" + headers.get(key));
                 }
                 return null;
             }
 
             // 获取响应JSON
-            InputStream is  = httpConnection.getInputStream();
+            InputStream is = httpConnection.getInputStream();
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             byte[] temp = new byte[512];
             int readLen = 0;

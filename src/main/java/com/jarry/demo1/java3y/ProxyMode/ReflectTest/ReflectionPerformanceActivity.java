@@ -5,13 +5,13 @@ package com.jarry.demo1.java3y.ProxyMode.ReflectTest;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.ReflectTest
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-14 10:23
- *
+ * <p>
  * 结论（1w次以上）：
  * 1、直接调用方法     1.4
  * 2、反射调用方法     6.2
  * 3、直接访问实例     1
  * 4、反射访问实例     3.75
- *
+ * <p>
  * 反射慢的根本原因：getMethod和getDeclaredField方法会比invoke和set方法耗时
  * （可能在代码中需要很多逻辑判断：如安全检查、参数检查、找到这个class）
  */

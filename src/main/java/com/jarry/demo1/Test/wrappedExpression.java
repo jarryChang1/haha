@@ -28,10 +28,11 @@ public class wrappedExpression implements Comparable<wrappedExpression> {
         this.priority = priority;
     }
 
-    public wrappedExpression(String sqlExpression, int priority){
+    public wrappedExpression(String sqlExpression, int priority) {
         this.sqlExpression = sqlExpression;
         this.priority = priority;
     }
+
     @Override
     public int compareTo(wrappedExpression o) {
         return Integer.compare(o.priority, this.priority);

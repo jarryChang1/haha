@@ -21,10 +21,10 @@ public class MyRabbitmqController {
 
     @RequestMapping("/sender")
     @ResponseBody
-    public String sender(){
+    public String sender() {
         System.out.println("send string:hello world");
         sender.sendMsg("jarry");
-        sender.send2("发一个Q*","Q.q");
+        sender.send2("发一个Q*", "Q.q");
         return "sending...";
     }
 }

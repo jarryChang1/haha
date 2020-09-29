@@ -18,7 +18,7 @@ public class ArticleServiceImpl implements ArticleService {
     ArticleMapper articleMapper;
 
     @Override
-    public Article getOne(int id){
+    public Article getOne(int id) {
         return articleMapper.getOne(id);
     }
 }

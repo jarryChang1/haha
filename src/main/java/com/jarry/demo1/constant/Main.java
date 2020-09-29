@@ -17,28 +17,29 @@ public class Main {
     int count = 100000;
     @Autowired
     CyclicBarrier cyclicBarrier;
+
     @Test
-    public void add(){
+    public void add() {
         SortArrayMap map = new SortArrayMap();
 
         long start = System.currentTimeMillis();
 
         for (int i = 0; i < count; i++) {
-            double d =Math.random();
-            int ran = (int)(d*100);
-            map.add(Long.valueOf(i + ran),"127.0.0."+i);
+            double d = Math.random();
+            int ran = (int) (d * 100);
+            map.add(Long.valueOf(i + ran), "127.0.0." + i);
         }
         map.sort();
 
         long end = System.currentTimeMillis();
 
-        System.out.println("排序耗时："+(end - start));
+        System.out.println("排序耗时：" + (end - start));
 
         System.out.println(map.size);
     }
 
-    private static volatile int  i =0;
-    private static volatile int  j =0;
+    private static volatile int i = 0;
+    private static volatile int j = 0;
 //    public static void main(String[] args) throws InterruptedException {
 //        AtomicInteger l = new AtomicInteger(12);//1100
 //        Thread thread = new Thread(new Runnable() {

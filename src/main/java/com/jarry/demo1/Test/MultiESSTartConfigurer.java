@@ -23,20 +23,19 @@ import org.springframework.context.annotation.Profile;
  */
 
 
-
 @Configuration
 //@Profile("multi-datasource")
 public class MultiESSTartConfigurer {
 
     @Bean(initMethod = "start")
     @ConfigurationProperties("spring.elasticsearch.bboss.default")
-    public BBossESStarter bbossESStarterDefault(){
+    public BBossESStarter bbossESStarterDefault() {
         return new BBossESStarter();
     }
 
     @Bean(initMethod = "start")
     @ConfigurationProperties("spring.elasticsearch.bboss.logs")
-    public BBossESStarter bbossESStarterLogs(){
+    public BBossESStarter bbossESStarterLogs() {
         return new BBossESStarter();
     }
 }

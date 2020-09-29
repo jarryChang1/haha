@@ -10,10 +10,11 @@ public class Context {
 
     private Parser parser;
 
-    public Context(Parser parser){
+    public Context(Parser parser) {
         this.parser = parser;
     }
-    public int excuteStrategy(String sqlString,int canMatch){
-        return parser.doParse(sqlString,canMatch);
+
+    public int excuteStrategy(String sqlString, int canMatch) {
+        return parser.doParse(sqlString, canMatch);
     }
 }

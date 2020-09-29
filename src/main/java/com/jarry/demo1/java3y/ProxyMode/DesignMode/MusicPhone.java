@@ -5,7 +5,7 @@ package com.jarry.demo1.java3y.ProxyMode.DesignMode;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.DesignMode
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-24 10:20
- *
+ * <p>
  * 有了装饰器后，我们的扩展都可以以装饰器为基础进行扩展，
  * 继承装饰器来扩展就OK了!
  */
@@ -15,8 +15,9 @@ public class MusicPhone extends DecoratorPattern {
     public MusicPhone(Phone phone) {
         super(phone);
     }
+
     //定义想要扩展的功能
-    public void listenMusic(){
+    public void listenMusic() {
         System.out.println("安静的听 心跳声 唱歌，人潮在汹涌，你却还孤单！");
     }
 
@@ -31,7 +32,7 @@ public class MusicPhone extends DecoratorPattern {
     }
 
     //定义想要扩展的功能
-    public void currentTime(){
+    public void currentTime() {
         System.out.println("当前时间为：" + System.currentTimeMillis());
     }
 }

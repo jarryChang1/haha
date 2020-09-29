@@ -13,20 +13,13 @@ import java.util.Set;
 
 
 /**
- *
  * 有点问题
- *
- *
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * <p>
  * =----------------------------------------------------------------------------------
- *
- *
- *
- *
- *
- *
  *
  * @BelongsProject: demo1
  * @BelongsPackage: com.jarry.demo1.controller
@@ -43,15 +36,14 @@ public class RedisController {
 //    private JedisClusterConfig jedisClusterConfig;
 
 
-
     @GetMapping("/redis/get/{key}")
-    private String get(@PathVariable("key") String key){
+    private String get(@PathVariable("key") String key) {
 
         Set<Integer> set = new HashSet<>();
         set.add(1);
 //        redisTemplate.opsForZSet().add("Zset1",set);
 //        System.out.println(redisProperties.toString());
-        redisTemplate.opsForValue().set("jarry","hahahahhaha");
+        redisTemplate.opsForValue().set("jarry", "hahahahhaha");
         return redisTemplate.opsForValue().get(key).toString();
 
 

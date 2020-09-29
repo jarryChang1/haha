@@ -16,7 +16,6 @@ public class Result<T> {
 
     /**
      * 状态码
-     *
      */
     String StateCode;
     /**
@@ -26,5 +25,5 @@ public class Result<T> {
     /**
      * 具体内容
      */
-    T    Data;
+    T Data;
 }

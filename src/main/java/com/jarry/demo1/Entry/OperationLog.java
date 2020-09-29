@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Data
 public class OperationLog {
-    private  Long id;
+    private Long id;
     private Date createTime;
 
     private Long userId;
@@ -22,7 +22,7 @@ public class OperationLog {
     private String operationDescribe;
 
     /**
-     1 增加，2删除，3修改，4导出。//查询、登录等
+     * 1 增加，2删除，3修改，4导出。//查询、登录等
      */
     private int operationType;
     private String method;

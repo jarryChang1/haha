@@ -11,13 +11,13 @@ import com.jarry.demo1.Demo1Application;
 public class ThreadLocal {
     private static java.lang.ThreadLocal<String> threadLocal = new java.lang.ThreadLocal<>();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 threadLocal.set("a");
                 Demo1Application.str = "110111";
-                System.out.println("thread1 local:"+threadLocal.get()+Thread.currentThread().getName());
+                System.out.println("thread1 local:" + threadLocal.get() + Thread.currentThread().getName());
             }
         });
         Thread thread1 = new Thread(new Runnable() {
@@ -25,7 +25,7 @@ public class ThreadLocal {
             public void run() {
                 threadLocal.set("b");
                 Demo1Application.str = "110110";
-                System.out.println("thread2 local:"+threadLocal.get()+Thread.currentThread().getName());
+                System.out.println("thread2 local:" + threadLocal.get() + Thread.currentThread().getName());
             }
         });
 
@@ -38,6 +38,6 @@ public class ThreadLocal {
             e.printStackTrace();
         }
         System.out.println(Demo1Application.str);
-        System.out.println("main local :"+threadLocal.get());
+        System.out.println("main local :" + threadLocal.get());
     }
 }

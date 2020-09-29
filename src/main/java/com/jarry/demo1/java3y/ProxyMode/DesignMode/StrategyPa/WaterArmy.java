@@ -7,7 +7,7 @@ package com.jarry.demo1.java3y.ProxyMode.DesignMode.StrategyPa;
  * @CreateTime: 2020-09-25 10:47
  */
 /*请水军（ConcreteStrategy）*/
-public class WaterArmy implements IncreaseFansStrategy{
+public class WaterArmy implements IncreaseFansStrategy {
 
     @Override
     public void action() {

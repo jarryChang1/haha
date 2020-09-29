@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/wx")
 public class WxController {
-    private static final String strAppId ="wxeb7057d45e535444";
+    private static final String strAppId = "wxeb7057d45e535444";
     private static final String strAppSecret = "18bf5d539166f99bee00940da93d6c0f";
 
     public WxController() {
@@ -32,7 +32,7 @@ public class WxController {
     //访问此资源的url:  http://localhost:8080/AutoLogin/wx/wxLogin.htm微信登录
     @RequestMapping(value = "/wxLogin.htm", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Result wxreg(HttpServletRequest request, String code){
+    public Result wxreg(HttpServletRequest request, String code) {
         Result result = new Result();
 
 
@@ -40,40 +40,39 @@ public class WxController {
 
         BaseResult baseResult = SnsAPI.auth(token.getAccess_token(), token.getOpenid());
 
-        if("0".equals(baseResult.getErrcode()) && "ok".equals(baseResult.getErrmsg())){
+        if ("0".equals(baseResult.getErrcode()) && "ok".equals(baseResult.getErrmsg())) {
             User user = SnsAPI.userinfo(token.getAccess_token(), token.getOpenid(), "zh-CN");
             System.out.println("user: " + user.toString());
             result.setStateCode("0");
             result.setDesc("成功获得信信登录用户");
             result.setData(user);
-        }else{
+        } else {
             result.setStateCode("-1");
             result.setDesc("成功获得信信登录用户");
         }
 
         return result;
     }
+
     //前端请求getCode
-    @GetMapping(value = "/getCode",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object wxcon(){
+    @GetMapping(value = "/getCode", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object wxcon() {
 //        String reUrl = SnsAPI.connectQrconnect(strAppId,"http://z.haoma.cn","lalalalajarry");
-        String reUrl = SnsAPI.connectOauth2Authorize(strAppId,"http://z.haoma.cn/pang/weixin/connectionServer",false,"lalalalajarry");
+        String reUrl = SnsAPI.connectOauth2Authorize(strAppId, "http://z.haoma.cn/pang/weixin/connectionServer", false, "lalalalajarry");
         System.out.println(reUrl);
 
-        Object o = HttpUtils.sendRequest(reUrl,HttpMethod.POST,null,String.class);
+        Object o = HttpUtils.sendRequest(reUrl, HttpMethod.POST, null, String.class);
         return o;
     }
 
 
-
     //测试函数
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 //        String reUrl = SnsAPI.connectQrconnect(strAppId,"http://z.haoma.cn","lalalalajarry");
-        String reUrl = SnsAPI.connectOauth2Authorize(strAppId,"http://z.haoma.cn/pang/weixin/connectionServer",false,"lalalalajarry");
+        String reUrl = SnsAPI.connectOauth2Authorize(strAppId, "http://z.haoma.cn/pang/weixin/connectionServer", false, "lalalalajarry");
 
         System.out.println(reUrl);
-        Object o = HttpUtils.sendRequest(reUrl,HttpMethod.POST,null,String.class);
+        Object o = HttpUtils.sendRequest(reUrl, HttpMethod.POST, null, String.class);
         System.out.println(o.toString());
         // TODO Auto-generated method stub
     }

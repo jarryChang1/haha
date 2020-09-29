@@ -20,15 +20,15 @@ public class Consumer {
 
 
     @RabbitHandler
-    public void process(String content, Channel channel, Message message)throws Exception{
+    public void process(String content, Channel channel, Message message) throws Exception {
         try {
             Thread.sleep(3000);
             System.out.println("睡眠3秒");
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
-        System.out.println("receiver success = "+ content);
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
+        System.out.println("receiver success = " + content);
 
         log.info("接收处理队列E当中的消息： " + content);
     }

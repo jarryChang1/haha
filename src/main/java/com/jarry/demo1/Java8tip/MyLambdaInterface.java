@@ -9,10 +9,11 @@ package com.jarry.demo1.Java8tip;
 
 //函数式接口，此注解可以检查接口是不是函数式接口，不允许多个抽象方法
 @FunctionalInterface
-interface MyLambdaInterface{
+interface MyLambdaInterface {
     void doSomething(String s);
+
     //接口可以支持静态方法，有方法体
-    static void lll(String s1){
+    static void lll(String s1) {
         System.out.println(s1);
     }
 }

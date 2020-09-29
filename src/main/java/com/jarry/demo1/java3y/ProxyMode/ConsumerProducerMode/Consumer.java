@@ -9,11 +9,11 @@ import java.util.Vector;
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-10 14:36
  */
-public class Consumer implements Runnable{
+public class Consumer implements Runnable {
 
     public final Vector sharedQueue;
 
-    public Consumer(Vector sharedQueue){
+    public Consumer(Vector sharedQueue) {
         this.sharedQueue = sharedQueue;
     }
 
@@ -21,24 +21,24 @@ public class Consumer implements Runnable{
     public void run() {
         Random r = new Random();
 
-        System.out.println("start consumer id = "+ Thread.currentThread().getId());
+        System.out.println("start consumer id = " + Thread.currentThread().getId());
 
         try {
-            while (true){
+            while (true) {
                 Thread.sleep(r.nextInt(1000));
-                while (sharedQueue.isEmpty()){
-                    synchronized (sharedQueue){
+                while (sharedQueue.isEmpty()) {
+                    synchronized (sharedQueue) {
                         System.out.println("Queue is empty,consumer " + Thread.currentThread().getId()
-                        + "is waiting ,size :" +sharedQueue.size());
+                                + "is waiting ,size :" + sharedQueue.size());
                         sharedQueue.wait();
                     }
                 }
-                synchronized (sharedQueue){
-                    System.out.println("consumer consume data:" + sharedQueue.remove(0) + ",size :"+ sharedQueue.size());
+                synchronized (sharedQueue) {
+                    System.out.println("consumer consume data:" + sharedQueue.remove(0) + ",size :" + sharedQueue.size());
                     sharedQueue.notifyAll();
                 }
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }

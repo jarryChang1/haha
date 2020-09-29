@@ -7,19 +7,20 @@ import java.util.concurrent.locks.ReentrantLock;
  * 测试ReentrantLock可中断锁的效果
  */
 public class ThreadInteruptDemo {
-    ReentrantLock lock1=new ReentrantLock();
-    ReentrantLock lock2=new ReentrantLock();
+    ReentrantLock lock1 = new ReentrantLock();
+    ReentrantLock lock2 = new ReentrantLock();
 
     /**
      * ReentrantLock响应中断
+     *
      * @throws Exception
      */
-    public void exeInterupt() throws Exception{
-        Thread t1=new Thread(new DemoThread(lock1,lock2));
-        Thread t2=new Thread(new DemoThread(lock2,lock1));
+    public void exeInterupt() throws Exception {
+        Thread t1 = new Thread(new DemoThread(lock1, lock2));
+        Thread t2 = new Thread(new DemoThread(lock2, lock1));
         t1.start();
         t2.start();
-        System.out.println(t1.getName()+"中断");
+        System.out.println(t1.getName() + "中断");
         //主线程睡眠1秒，避免线程t1直接响应run方法中的睡眠中断
         Thread.sleep(1000);
         t1.interrupt();
@@ -27,19 +28,20 @@ public class ThreadInteruptDemo {
         Thread.sleep(10000);
     }
 
-    Object syn1=new Object();
-    Object syn2=new Object();
+    Object syn1 = new Object();
+    Object syn2 = new Object();
 
     /**
      * Synchronized响应中断
+     *
      * @throws Exception
      */
-    public void exeInteruptSyn() throws Exception{
-        Thread t1=new Thread(new DemoThread1(syn1,syn2));
-        Thread t2=new Thread(new DemoThread1(syn2,syn1));
+    public void exeInteruptSyn() throws Exception {
+        Thread t1 = new Thread(new DemoThread1(syn1, syn2));
+        Thread t2 = new Thread(new DemoThread1(syn2, syn1));
         t1.start();
         t2.start();
-        System.out.println(t1.getName()+"中断");
+        System.out.println(t1.getName() + "中断");
         //主线程睡眠1秒，避免线程t1直接响应run方法中的睡眠中断
         Thread.sleep(1000);
         t1.interrupt();
@@ -50,14 +52,14 @@ public class ThreadInteruptDemo {
     /**
      * ReentrantLock实现死锁
      */
-    static class DemoThread implements Runnable{
+    static class DemoThread implements Runnable {
 
         ReentrantLock lock1;
         ReentrantLock lock2;
 
-        public DemoThread(ReentrantLock lock1,ReentrantLock lock2){
-            this.lock1=lock1;
-            this.lock2=lock2;
+        public DemoThread(ReentrantLock lock1, ReentrantLock lock2) {
+            this.lock1 = lock1;
+            this.lock2 = lock2;
         }
 
         @Override
@@ -73,10 +75,10 @@ public class ThreadInteruptDemo {
                 lock2.lockInterruptibly();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 lock1.unlock();
                 lock2.unlock();
-                System.out.println("线程"+Thread.currentThread().getName()+"正常结束");
+                System.out.println("线程" + Thread.currentThread().getName() + "正常结束");
             }
 
         }
@@ -85,30 +87,30 @@ public class ThreadInteruptDemo {
     /**
      * Synchronized实现死锁
      */
-    static class DemoThread1 implements Runnable{
+    static class DemoThread1 implements Runnable {
 
         Object lock1;
         Object lock2;
 
-        public DemoThread1(Object lock1,Object lock2){
-            this.lock1=lock1;
-            this.lock2=lock2;
+        public DemoThread1(Object lock1, Object lock2) {
+            this.lock1 = lock1;
+            this.lock2 = lock2;
         }
 
         @Override
         public void run() {
             try {
-                synchronized (lock1){
+                synchronized (lock1) {
                     //睡眠200毫秒，再获取另一个锁，
                     //保证两个线程分别已经获取到两个锁，实现相互的锁等待
                     TimeUnit.MILLISECONDS.sleep(200);
-                    synchronized (lock2){
+                    synchronized (lock2) {
                     }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }finally {
-                System.out.println("线程"+Thread.currentThread().getName()+"正常结束");
+            } finally {
+                System.out.println("线程" + Thread.currentThread().getName() + "正常结束");
             }
 
         }

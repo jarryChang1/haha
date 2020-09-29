@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 public class TestStreamReduceAndCollect {
 
     List<UserBean> users = Arrays.asList(
-            new UserBean("李红",22,22,34),
-            new UserBean("赵四",36,22,46),
-            new UserBean("王五",22,22,33),
-            new UserBean("张三",58,22,47)
+            new UserBean("李红", 22, 22, 34),
+            new UserBean("赵四", 36, 22, 46),
+            new UserBean("王五", 22, 22, 33),
+            new UserBean("张三", 58, 22, 47)
     );
     /**
      *   收集
@@ -31,52 +31,53 @@ public class TestStreamReduceAndCollect {
      *
      */
     /**
-     *    分区
-     *    ture和false分区
+     * 分区
+     * ture和false分区
      */
-        @Test
-        public void test4(){
-            Map<Boolean,List<UserBean>> map = users.stream()
-                    .collect(Collectors.partitioningBy(x -> x.getAge()>35));
-            System.out.println(map);
-        }
-        @Test
-        public void test5(){
-            String s = users.stream()
-                    .map(UserBean::getName)     //分隔符=delimiter
-                    .collect(Collectors.joining("->"));
-            System.out.println(s);
-        }
+    @Test
+    public void test4() {
+        Map<Boolean, List<UserBean>> map = users.stream()
+                .collect(Collectors.partitioningBy(x -> x.getAge() > 35));
+        System.out.println(map);
+    }
+
+    @Test
+    public void test5() {
+        String s = users.stream()
+                .map(UserBean::getName)     //分隔符=delimiter
+                .collect(Collectors.joining("->"));
+        System.out.println(s);
+    }
 
     /**
      * 分组
      */
     //多级分组
     @Test
-    public void test3(){
+    public void test3() {
         Instant start = Instant.now();
-        Map<Integer,Map<String,List<UserBean>>> map = users.stream()
-                .collect(Collectors.groupingBy(UserBean::getAge,Collectors.groupingBy((u)->{
-                    if( u.getEmail() < 35){
+        Map<Integer, Map<String, List<UserBean>>> map = users.stream()
+                .collect(Collectors.groupingBy(UserBean::getAge, Collectors.groupingBy((u) -> {
+                    if (u.getEmail() < 35) {
                         return "min";
                     }
                     return "max";
                 })));
         System.out.println(map);
         Instant end = Instant.now();
-        long l = Duration.between(start,end).toMillis();
+        long l = Duration.between(start, end).toMillis();
         System.out.println(l);
 
     }
 
     @Test
-    public void test7(){
+    public void test7() {
 
-        Integer[] is = new Integer[]{0,1,2,3,4,5};
-        for (int i = 0; i < is.length/2; i++) {
+        Integer[] is = new Integer[]{0, 1, 2, 3, 4, 5};
+        for (int i = 0; i < is.length / 2; i++) {
             Integer tmp = is[i];
-            is[i] = is[is.length - i -1];
-            is[is.length -i - 1] = tmp;
+            is[i] = is[is.length - i - 1];
+            is[is.length - i - 1] = tmp;
         }
         System.out.println(Arrays.toString(is));
 
@@ -84,9 +85,9 @@ public class TestStreamReduceAndCollect {
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         //总数
-       String s = users.stream()
+        String s = users.stream()
                 .map(UserBean::getName)
                 .collect(Collectors.counting()).toString();
         System.out.println(s);
@@ -95,14 +96,14 @@ public class TestStreamReduceAndCollect {
                 .collect(Collectors.averagingInt(UserBean::getAge));
         System.out.println(i);
         //分组
-        Map<Integer,List<UserBean>> map = users.stream()
+        Map<Integer, List<UserBean>> map = users.stream()
                 .collect(Collectors.groupingBy(UserBean::getAge));
         System.out.println(map);
     }
 
 
     @Test
-    public void test1(){
+    public void test1() {
         users.stream()
                 .map(UserBean::getName)
                 .collect(Collectors.toList())

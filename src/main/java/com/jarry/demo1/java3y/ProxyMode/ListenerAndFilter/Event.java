@@ -14,9 +14,10 @@ public class Event {
         this.person = person;
     }
 
-    public Event(){}
+    public Event() {
+    }
 
-    public Person getResource(){
+    public Person getResource() {
         return person;
     }
 }

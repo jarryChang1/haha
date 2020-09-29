@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @CreateTime: 2020-09-10 16:54
  */
 @Data
-public class Subject implements Cloneable,Serializable {
+public class Subject implements Cloneable, Serializable {
 
     private String name;
 
@@ -21,7 +21,7 @@ public class Subject implements Cloneable,Serializable {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return  super.clone();
+        return super.clone();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.concurrent.Semaphore;
  * @BelongsPackage: com.jarry.demo1.java3y.ProxyMode.ThreadUse.CCS
  * @Author: Jarry.Chang
  * @CreateTime: 2020-09-23 17:19
- *
+ * <p>
  * 3ynv朋友开了一家奶茶店，一次只能容纳5个人挑选购买，超过就要排队
  */
 public class SemaphoreX {
@@ -23,21 +23,21 @@ public class SemaphoreX {
 
         for (int i = 0; i < nums; i++) {
             int finalI = i;
-            new Thread(()->{
-               try {
-                   //有”牌“的才能进奶茶店挑选购买
-                   semaphore.acquire();
+            new Thread(() -> {
+                try {
+                    //有”牌“的才能进奶茶店挑选购买
+                    semaphore.acquire();
 
-                   System.out.println("顾客" + finalI + "在挑选商品，购买……");
+                    System.out.println("顾客" + finalI + "在挑选商品，购买……");
                     //挑选耗时
-                   Thread.sleep(1000);
+                    Thread.sleep(1000);
 
-                   System.out.println("顾客" + finalI + "购买完毕了……");
+                    System.out.println("顾客" + finalI + "购买完毕了……");
                     //归还一个“狗牌”，后来的顾客就可以购买了
-                   semaphore.release();
-               }catch (InterruptedException e){
-                   e.printStackTrace();
-               }
+                    semaphore.release();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }).start();
 
         }
